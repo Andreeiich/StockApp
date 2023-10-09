@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    app:circularflow_defaultRadius="10dp"
+    app:circularflow_radiusInDP="10dp">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="392dp"
+        android:layout_height="84dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/round_style"
+        android:backgroundTint="#f0f4f7"
+        app:circularflow_defaultRadius="16dp"
+        app:circularflow_radiusInDP="16dp"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="-1dp"
+        tools:layout_editor_absoluteY="0dp">
+
+
+        <TextView
+            android:id="@+id/Ticker"
+            android:layout_width="52dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="27dp"
+            android:text="Ticker"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/cardView"
+            tools:layout_editor_absoluteY="16dp" />
+
+        <TextView
+            android:id="@+id/Company_name"
+            android:layout_width="82dp"
+            android:layout_height="15dp"
+            android:layout_marginStart="27dp"
+            android:text="Company name"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/cardView"
+            tools:layout_editor_absoluteY="40dp" />
+
+        <ImageView
+            android:id="@+id/star"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toEndOf="@+id/Ticker"
+            app:srcCompat="@android:drawable/btn_star"
+            tools:layout_editor_absoluteY="16dp" />
+
+        <TextView
+            android:id="@+id/Current_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:text="Current price"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/star"
+            tools:layout_editor_absoluteY="16dp" />
+
+        <TextView
+            android:id="@+id/Day_delta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="160dp"
+            android:text="Day delta"
+            android:textColor="#24B25D"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/Company_name"
+            tools:layout_editor_absoluteY="40dp" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginBottom="49dp"
+            app:cardCornerRadius="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:srcCompat="@tools:sample/avatars" />
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

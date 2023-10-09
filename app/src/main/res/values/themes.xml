@@ -6,4 +6,5 @@
     </style>
 
     <style name="Theme.StockApp" parent="Base.Theme.StockApp" />
+
 </resources>
