@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="button_radius">16px</dimen>
+    <dimen name="button_gap">10px</dimen>
+    <dimen name="button_padding">16px</dimen>
+    <dimen name="button_height">56px</dimen>
+    <dimen name="search_radius">40px</dimen>
+    <dimen name="search_border">2px</dimen>
+    <dimen name="search_height">48px</dimen>
+    <dimen name="stock_radius">16px</dimen>
+    <dimen name="stock_height">68px</dimen>
+    <dimen name="primary_menu_height">32px</dimen>
+    <dimen name="primary_menu_gap">20px</dimen>
+    <dimen name="header">144px</dimen>
+    <dimen name="chips_height">44px</dimen>
+    <dimen name="chips_gap">10px</dimen>
+    <dimen name="schedule_height">260px</dimen>
+    <dimen name="schedule_border">2px</dimen>
+
+</resources>

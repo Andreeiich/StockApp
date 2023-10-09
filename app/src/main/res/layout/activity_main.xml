@@ -8,12 +8,24 @@
 
     <TextView
         android:id="@+id/some_title_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:layout_width="325dp"
+        android:layout_height="28dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="Montserrat Bold"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="169dp"
+        android:layout_height="33dp"
+        android:text="Motserrat_medium"
+        android:textColor="@color/black"
+        android:fontFamily="@font/montserrat_semibold"
+        tools:layout_editor_absoluteX="34dp"
+        tools:layout_editor_absoluteY="399dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
