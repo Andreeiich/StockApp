@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="button_radius">16px</dimen>
-    <dimen name="button_gap">10px</dimen>
-    <dimen name="button_padding">16px</dimen>
-    <dimen name="button_height">56px</dimen>
-    <dimen name="search_radius">40px</dimen>
-    <dimen name="search_border">2px</dimen>
-    <dimen name="search_height">48px</dimen>
-    <dimen name="stock_radius">16px</dimen>
-    <dimen name="stock_height">68px</dimen>
-    <dimen name="primary_menu_height">32px</dimen>
-    <dimen name="primary_menu_gap">20px</dimen>
-    <dimen name="header">144px</dimen>
-    <dimen name="chips_height">44px</dimen>
-    <dimen name="chips_gap">10px</dimen>
-    <dimen name="schedule_height">260px</dimen>
-    <dimen name="schedule_border">2px</dimen>
+    <dimen name="button_radius">16dp</dimen>
+    <dimen name="button_gap">10dp</dimen>
+    <dimen name="button_padding">16dp</dimen>
+    <dimen name="button_height">56dp</dimen>
+    <dimen name="search_radius">40dp</dimen>
+    <dimen name="search_border">2dp</dimen>
+    <dimen name="search_height">48dp</dimen>
+    <dimen name="stock_radius">16dp</dimen>
+    <dimen name="stock_height">68dp</dimen>
+    <dimen name="primary_menu_height">32dp</dimen>
+    <dimen name="primary_menu_gap">20dp</dimen>
+    <dimen name="header">144dp</dimen>
+    <dimen name="chips_height">44dp</dimen>
+    <dimen name="chips_gap">10dp</dimen>
+    <dimen name="schedule_height">260dp</dimen>
+    <dimen name="schedule_border">2dp</dimen>
+    <dimen name="stocks_size_font">28sp</dimen>
+    <dimen name="stocks_container_height">32dp</dimen>
+    <dimen name="stocks_container_width">98dp</dimen>
 
 </resources>
