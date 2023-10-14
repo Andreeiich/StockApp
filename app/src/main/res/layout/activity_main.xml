@@ -7,7 +7,7 @@
     tools:context=".features.home.presentation.MainActivity">
 
     <TextView
-        android:id="@+id/some_title_textview"
+        android:id="@+id/secondTitle"
         android:layout_width="@dimen/stocks_container_width"
         android:layout_height="@dimen/stocks_container_height"
         android:fontFamily="@font/montserrat_bold"
@@ -19,13 +19,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/firstTitle"
         android:layout_width="@dimen/stocks_container_width"
         android:layout_height="@dimen/stocks_container_height"
         android:fontFamily="@font/montserrat_semibold"
         android:text="Motserrat_medium"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/some_title_textview"
+        app:layout_constraintBottom_toTopOf="@+id/secondTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

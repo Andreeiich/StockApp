@@ -2,7 +2,7 @@
     <string name="app_name">Приложение Акций</string>
     <string name="stocks">Акции</string>
     <string name="favourite">Любимые</string>
-    <string name="find">\   Найти компанию или тикер</string>
+    <string name="find">Найти компанию или тикер</string>
     <string name="Popular_requests">Популярные запросы</string>
     <string name="searched">Вы искали это</string>
     <string name="chart">Диаграмма</string>
