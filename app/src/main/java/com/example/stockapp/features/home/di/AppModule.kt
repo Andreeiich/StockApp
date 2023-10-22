@@ -2,14 +2,15 @@ package com.example.stockapp.features.home.di
 
 import com.example.stockapp.features.home.data.DataRepositoryImpl
 import com.example.stockapp.features.home.data.ServerDataApi
-import com.example.stockapp.features.home.domain.BusinessLogicHelper
-import com.example.stockapp.features.home.domain.BusinessLogicHelperImpl
+import com.example.stockapp.features.home.domain.StockDataHelper
+import com.example.stockapp.features.home.domain.StockDataHelperImpl
 import com.example.stockapp.features.home.domain.DataRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
@@ -20,7 +21,8 @@ object AppModule {
     @Singleton
     fun provideServerDataApi(): ServerDataApi {
         return Retrofit.Builder()
-            .baseUrl("https://blabla")
+            .baseUrl("https://financialmodelingprep.com/api/v3/")
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ServerDataApi::class.java)
     }
@@ -33,7 +35,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideBussnesLogicObject(): BusinessLogicHelper {
-        return BusinessLogicHelperImpl()
+    fun provideBussnesLogicObject(): StockDataHelper {
+        return StockDataHelperImpl()
     }
 }

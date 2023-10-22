@@ -17,14 +17,24 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField ("String", "KEY_STOCKS", project.KEY_STOCKS)
     }
 
     buildTypes {
+        debug{
+            buildConfigField ("String", "KEY_STOCKS", project.KEY_STOCKS)
+        }
+
         release {
+            buildConfigField ("String", "KEY_STOCKS", project.KEY_STOCKS)
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    buildFeatures{
+        viewBinding true
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
@@ -53,8 +63,11 @@ dependencies {
 
     implementation 'androidx.fragment:fragment-ktx:1.6.1'
 
-
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation "com.squareup.okhttp3:okhttp:5.0.0-alpha.3"
+
+    //Glide
+    implementation 'com.github.bumptech.glide:glide:4.14.2'
 }

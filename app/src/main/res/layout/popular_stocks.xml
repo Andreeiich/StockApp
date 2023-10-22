@@ -4,17 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
     app:circularflow_defaultRadius="10dp"
     app:circularflow_radiusInDP="10dp">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="392dp"
-        android:layout_height="84dp"
-        android:layout_margin="10dp"
+        android:id="@+id/popularStock"
+        android:layout_width="match_parent"
+        android:layout_height="92dp"
         android:background="@drawable/round_style"
-        android:backgroundTint="#f0f4f7"
+
         app:circularflow_defaultRadius="16dp"
         app:circularflow_radiusInDP="16dp"
         tools:ignore="MissingConstraints"
@@ -23,76 +22,93 @@
 
 
         <TextView
-            android:id="@+id/Ticker"
+            android:id="@+id/ticker"
             android:layout_width="52dp"
             android:layout_height="24dp"
-            android:layout_marginStart="27dp"
-            android:text="Ticker"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
             android:fontFamily="@font/montserrat_bold"
+            android:text="Ticker"
             android:textColor="@color/text_color"
             android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/company_name"
+            app:layout_constraintEnd_toStartOf="@+id/star"
             app:layout_constraintStart_toEndOf="@+id/cardView"
-            tools:layout_editor_absoluteY="16dp" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/Company_name"
+            android:id="@+id/company_name"
             android:layout_width="82dp"
             android:layout_height="15dp"
             android:layout_marginStart="27dp"
-            android:text="Company name"
+            android:layout_marginBottom="37dp"
             android:fontFamily="@font/montserrat_semibold"
+            android:text="Company name"
             android:textColor="@color/black"
             android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/cardView"
-            tools:layout_editor_absoluteY="40dp" />
+            app:layout_constraintTop_toBottomOf="@+id/ticker" />
 
         <ImageView
             android:id="@+id/star"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="16dp"
-            app:layout_constraintStart_toEndOf="@+id/Ticker"
-            app:srcCompat="@android:drawable/btn_star"
-            tools:layout_editor_absoluteY="16dp" />
+            android:layout_width="21dp"
+            android:layout_height="18dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/company_name"
+            app:layout_constraintStart_toEndOf="@+id/ticker"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@android:drawable/btn_star" />
 
         <TextView
-            android:id="@+id/Current_price"
+            android:id="@+id/current_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
-            android:text="Current price"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
             android:fontFamily="@font/montserrat_bold"
+            android:text="Current price"
             android:textColor="@color/text_color"
             android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/star"
-            tools:layout_editor_absoluteY="16dp" />
+            app:layout_constraintBottom_toTopOf="@+id/day_delta"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/Day_delta"
+            android:id="@+id/day_delta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="160dp"
-            android:text="Day delta"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="35dp"
             android:fontFamily="@font/montserrat_semibold"
+            android:text="Day delta"
             android:textColor="@color/green"
             android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@+id/Company_name"
-            tools:layout_editor_absoluteY="40dp" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/current_price" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
             android:layout_width="52dp"
             android:layout_height="52dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="35dp"
+            android:layout_marginEnd="28dp"
             android:layout_marginBottom="49dp"
             app:cardCornerRadius="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/ticker"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/logo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:srcCompat="@tools:sample/avatars" />
