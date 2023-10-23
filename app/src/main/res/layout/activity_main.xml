@@ -7,11 +7,25 @@
     tools:context=".features.home.presentation.MainActivity">
 
     <TextView
-        android:id="@+id/some_title_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:id="@+id/secondTitle"
+        android:layout_width="@dimen/stocks_container_width"
+        android:layout_height="@dimen/stocks_container_height"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="Montserrat Bold"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/firstTitle"
+        android:layout_width="@dimen/stocks_container_width"
+        android:layout_height="@dimen/stocks_container_height"
+        android:fontFamily="@font/montserrat_semibold"
+        android:text="Motserrat_medium"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/secondTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

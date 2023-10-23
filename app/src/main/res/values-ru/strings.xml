@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Приложение Акций</string>
+    <string name="stocks">Акции</string>
+    <string name="favourite">Любимые</string>
+    <string name="find">Найти компанию или тикер</string>
+    <string name="Popular_requests">Популярные запросы</string>
+    <string name="searched">Вы искали это</string>
+    <string name="chart">Диаграмма</string>
+    <string name="summary">Краткое содержание</string>
+    <string name="news">Новости</string>
+    <string name="buy">Купить за $</string>
+    <string name="All">Все</string>
+    <string name="Y">1Г</string>
+    <string name="M">6М</string>
+    <string name="idea">Представление</string>
+
+</resources>

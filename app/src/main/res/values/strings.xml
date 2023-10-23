@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">StockApp</string>
+    <string name="stocks">Stocks</string>
+    <string name="favourite">Favourite</string>
+    <string name="find">Find company or ticker</string>
+    <string name="Popular_requests">Popular requests</string>
+    <string name="searched">You\'ve searched for this</string>
+    <string name="chart">Chart</string>
+    <string name="summary">Summary</string>
+    <string name="news">News</string>
+    <string name="buy">Buy for $</string>
+    <string name="All">All</string>
+    <string name="Y">1Y</string>
+    <string name="M">6M</string>
+    <string name="idea">Idea</string>
+
 </resources>
