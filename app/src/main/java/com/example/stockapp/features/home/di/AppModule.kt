@@ -21,7 +21,7 @@ object AppModule {
     @Singleton
     fun provideServerDataApi(): ServerDataApi {
         return Retrofit.Builder()
-            .baseUrl("https://financialmodelingprep.com/api/v3/")
+            .baseUrl(ServerDataApi.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ServerDataApi::class.java)

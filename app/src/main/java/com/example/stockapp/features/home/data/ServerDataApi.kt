@@ -1,5 +1,6 @@
 package com.example.stockapp.features.home.data
 
+
 import com.example.stockapp.BuildConfig
 import retrofit2.http.GET
 import retrofit2.http.Path
