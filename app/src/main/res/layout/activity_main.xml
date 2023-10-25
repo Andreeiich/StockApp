@@ -10,11 +10,11 @@
         android:id="@+id/stocks"
         android:layout_width="98dp"
         android:layout_height="32dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/montserrat_bold"
         android:text="Stocks"
-        android:textColor="@color/text_color"
+        android:textColor="@color/black"
         android:textSize="28sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
@@ -22,8 +22,8 @@
     <com.google.android.material.textfield.TextInputLayout
 
         android:id="@+id/textInputLayout2"
-        android:layout_width="339dp"
-        android:layout_height="55dp"
+        android:layout_width="377dp"
+        android:layout_height="53dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="16dp"
@@ -35,11 +35,12 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:background="@drawable/edit_text_style"
-            android:drawableStart="@drawable/ellipse"
+            android:drawableStart="@drawable/search"
+            android:drawablePadding="8dp"
             android:fontFamily="@font/montserrat_semibold"
             android:hint="@string/find"
-            android:textColor="@color/text_color"
-            android:textColorHint="@color/text_color"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
             android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -48,27 +49,27 @@
         android:layout_width="89dp"
         android:layout_height="24dp"
         android:layout_marginStart="37dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="177dp"
         android:fontFamily="@font/montserrat_bold"
         android:text="Favourite"
         android:textColor="@color/grey"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/stocks"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recView"
-        android:layout_width="match_parent"
-        android:layout_height="547dp"
+        android:layout_width="377dp"
+        android:layout_height="539dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/favourite" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

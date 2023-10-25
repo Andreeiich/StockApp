@@ -1,3 +1,4 @@
+/*
 package com.example.stockapp.features.home.domain
 
 
@@ -7,3 +8,4 @@ class BusinessLogicHelperImpl : BusinessLogicHelper {
         return params.copy(title = "qwerty")
     }
 }
+*/

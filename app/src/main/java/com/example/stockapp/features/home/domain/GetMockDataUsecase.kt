@@ -1,3 +1,4 @@
+/*
 package com.example.stockapp.features.home.domain
 
 import com.example.stockapp.core.domain.CoroutinesUseCase
@@ -15,3 +16,4 @@ class GetMockDataUsecase @Inject constructor(
         return result.toUI()
     }
 }
+*/
