@@ -1,17 +1,16 @@
 package com.example.stockapp.features.home.presentation
 
 import android.annotation.SuppressLint
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.stockapp.R
 import com.example.stockapp.databinding.PopularStocksBinding
 import com.example.stockapp.features.home.data.StockDTO
 import com.example.stockapp.features.home.data.StockNameDTO
-import com.bumptech.glide.Glide
-import com.example.stockapp.R
 
 class StockAdapter : RecyclerView.Adapter<StockAdapter.StockHolder>() {
 
@@ -24,24 +23,23 @@ class StockAdapter : RecyclerView.Adapter<StockAdapter.StockHolder>() {
         @SuppressLint("ResourceAsColor")
         fun bind(stockName: StockNameDTO, stock: StockDTO, position: Int) = with(binding) {
 
+            val changesPercentage: Double =
+                ((stock.price - (stock.price + Math.abs(stock.changes))) / (stock.price + stock.changes)) * 100
+
             ticker.text = stock.symbol
             companyName.text = stock.companyName
             currentPrice.text = "$".plus(stock.price.toString())
 
-            if (stock.changes >= 0) {
-                dayDelta.text = "+$".plus(stock.changes).plus(" (")
-                    .plus(String.format("%.2f", stockName.changesPercentage))
-                    .plus("%)")
-            } else {
-                dayDelta.text = "-$".plus(Math.abs(stock.changes)).plus(" (")
-                    .plus(String.format("%.2f", stockName.changesPercentage))
-                    .plus("%)")
-            }
+            val signValuta = if (stock.changes >= 0) "+$" else "-$"
+            dayDelta.text = signValuta.plus(Math.abs(stock.changes)).plus(" (")
+                .plus(String.format("%.2f", Math.abs(changesPercentage)))
+                .plus("%)")
 
-            val defaultColor = popularStock.background
-            val conditionColor =
+            val colorStock = popularStock.background
+            val colorStockPosition =
                 if (position % 2 == 0) R.color.background_search_input else R.color.white
-            defaultColor.setTint(ContextCompat.getColor(popularStock.context, conditionColor))
+
+            colorStock.setTint(ContextCompat.getColor(popularStock.context, colorStockPosition))
 
             val changesPercentageColor = if (stock.changes < 0) R.color.red else R.color.green
             dayDelta.setTextColor(ContextCompat.getColor(dayDelta.context, changesPercentageColor))
@@ -65,7 +63,7 @@ class StockAdapter : RecyclerView.Adapter<StockAdapter.StockHolder>() {
         holder.bind(stockListName[position], stockList[position], position)
     }
 
-    fun addStock(stockName: List<StockNameDTO>, stock: MutableList<StockDTO>) {
+    fun addStock(stockName: List<StockNameDTO>, stock: List<StockDTO>) {
         stockList.addAll(stock)
         stockListName.addAll(stockName)
         notifyDataSetChanged()

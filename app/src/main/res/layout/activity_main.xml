@@ -25,7 +25,7 @@
         android:layout_width="377dp"
         android:layout_height="53dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +33,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="48dp"
             android:background="@drawable/edit_text_style"
             android:drawableStart="@drawable/search"
             android:drawablePadding="8dp"
@@ -48,7 +48,7 @@
         android:id="@+id/favourite"
         android:layout_width="89dp"
         android:layout_height="24dp"
-        android:layout_marginStart="37dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="177dp"
         android:fontFamily="@font/montserrat_bold"

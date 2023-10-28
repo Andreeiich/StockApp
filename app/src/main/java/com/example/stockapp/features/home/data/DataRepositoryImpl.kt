@@ -7,7 +7,7 @@ class DataRepositoryImpl(
     private val api: ServerDataApi
 ) : DataRepository {
 
-    override suspend fun getAllDataOfStocks(stock: String): MutableList<StockDTO> {
+    override suspend fun getAllDataOfStocks(stock: String): List<StockDTO> {
         return api.getAllStock(stock)
     }
 
