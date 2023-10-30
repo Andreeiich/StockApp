@@ -17,19 +17,19 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField ("String", "KEY_STOCKS", project.KEY_STOCKS)
+        buildConfigField("String", "KEY_STOCKS", project.KEY_STOCKS)
 
     }
 
     buildTypes {
 
         release {
-            
+
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    buildFeatures{
+    buildFeatures {
         viewBinding true
         buildConfig = true
     }

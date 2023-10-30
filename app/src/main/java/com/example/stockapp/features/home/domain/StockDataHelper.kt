@@ -6,6 +6,6 @@ import com.example.stockapp.features.home.data.StockNameDTO
 interface StockDataHelper {
     suspend fun takeStock(
         stockNameDTOList: List<StockNameDTO>,
-        stockDTOList: MutableList<StockDTO>
+        stockDTOList: List<StockDTO>
     ): DataDomain
 }

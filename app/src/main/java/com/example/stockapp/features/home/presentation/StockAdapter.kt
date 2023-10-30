@@ -30,16 +30,16 @@ class StockAdapter : RecyclerView.Adapter<StockAdapter.StockHolder>() {
             companyName.text = stock.companyName
             currentPrice.text = "$".plus(stock.price.toString())
 
-            val signValuta = if (stock.changes >= 0) "+$" else "-$"
-            dayDelta.text = signValuta.plus(Math.abs(stock.changes)).plus(" (")
+            val signOfCurrency = if (stock.changes >= 0) "+$" else "-$"
+            dayDelta.text = signOfCurrency.plus(Math.abs(stock.changes)).plus(" (")
                 .plus(String.format("%.2f", Math.abs(changesPercentage)))
                 .plus("%)")
 
-            val colorStock = popularStock.background
+            val backgroundOfStock = popularStock.background
             val colorStockPosition =
                 if (position % 2 == 0) R.color.background_search_input else R.color.white
 
-            colorStock.setTint(ContextCompat.getColor(popularStock.context, colorStockPosition))
+            backgroundOfStock.setTint(ContextCompat.getColor(popularStock.context, colorStockPosition))
 
             val changesPercentageColor = if (stock.changes < 0) R.color.red else R.color.green
             dayDelta.setTextColor(ContextCompat.getColor(dayDelta.context, changesPercentageColor))
