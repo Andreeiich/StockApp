@@ -14,20 +14,22 @@ import com.example.stockapp.features.home.data.StockNameDTO
 
 class StockAdapter : RecyclerView.Adapter<StockAdapter.StockHolder>() {
 
-    val stockListName: MutableList<StockNameDTO> = arrayListOf()
+
     var stockList: MutableList<StockDTO> = arrayListOf()
 
     class StockHolder(item: View) : RecyclerView.ViewHolder(item) {
         val binding = PopularStocksBinding.bind(item)
 
         @SuppressLint("ResourceAsColor")
-        fun bind(stockName: StockNameDTO, stock: StockDTO, position: Int) = with(binding) {
+        fun bind(stock: StockDTO, position: Int) = with(binding) {
 
             val changesPercentage: Double =
                 ((stock.price - (stock.price + Math.abs(stock.changes))) / (stock.price + stock.changes)) * 100
 
             ticker.text = stock.symbol
             companyName.text = stock.companyName
+            companyName.isSelected = true
+
             currentPrice.text = "$".plus(stock.price.toString())
 
             val signOfCurrency = if (stock.changes >= 0) "+$" else "-$"
@@ -39,7 +41,12 @@ class StockAdapter : RecyclerView.Adapter<StockAdapter.StockHolder>() {
             val colorStockPosition =
                 if (position % 2 == 0) R.color.background_search_input else R.color.white
 
-            backgroundOfStock.setTint(ContextCompat.getColor(popularStock.context, colorStockPosition))
+            backgroundOfStock.setTint(
+                ContextCompat.getColor(
+                    popularStock.context,
+                    colorStockPosition
+                )
+            )
 
             val changesPercentageColor = if (stock.changes < 0) R.color.red else R.color.green
             dayDelta.setTextColor(ContextCompat.getColor(dayDelta.context, changesPercentageColor))
@@ -60,12 +67,12 @@ class StockAdapter : RecyclerView.Adapter<StockAdapter.StockHolder>() {
     }
 
     override fun onBindViewHolder(holder: StockHolder, position: Int) {
-        holder.bind(stockListName[position], stockList[position], position)
+        holder.bind(stockList[position], position)
+
     }
 
-    fun addStock(stockName: List<StockNameDTO>, stock: List<StockDTO>) {
+    fun addStock(stock: List<StockDTO>) {
         stockList.addAll(stock)
-        stockListName.addAll(stockName)
         notifyDataSetChanged()
     }
 

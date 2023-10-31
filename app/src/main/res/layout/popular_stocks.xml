@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="68dp"
-    android:layout_marginTop="8dp"
+    android:layout_height="@dimen/stocks_container_height"
+    android:layout_marginTop="@dimen/stocks_container_margin_top"
     android:background="@drawable/round_style">
 
 
@@ -13,92 +13,92 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/round_style"
-        app:circularflow_defaultRadius="16dp"
-        app:circularflow_radiusInDP="16dp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="-1dp"
-        tools:layout_editor_absoluteY="4dp">
+        tools:ignore="MissingConstraints">
 
         <TextView
             android:id="@+id/ticker"
             android:layout_width="wrap_content"
-            android:layout_height="24dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_height="@dimen/ticker_height"
+            android:layout_marginStart="@dimen/ticker_margin_start"
+            android:layout_marginTop="@dimen/ticker_margin_top"
             android:fontFamily="@font/montserrat_bold"
             android:text="Ticker"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="@dimen/ticker_text_size"
             app:layout_constraintStart_toEndOf="@+id/cardView"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/company_name"
-            android:layout_width="71dp"
-            android:layout_height="16dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginBottom="8dp"
-            android:fontFamily="@font/montserrat_semibold"
+            android:layout_width="@dimen/company_width"
+            android:layout_height="@dimen/company_height"
+            android:layout_marginStart="@dimen/company_margin_start"
+            android:layout_marginBottom="@dimen/margin_bottom"
+            android:ellipsize="marquee"
+            android:fontFamily="@font/montserrat_semi_bold"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:scrollbars="horizontal"
             android:text="Company name"
             android:textColor="@color/black"
-            android:textSize="11sp"
+            android:textSize="@dimen/company_text_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/cardView" />
 
         <ImageView
             android:id="@+id/star"
-            android:layout_width="21dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="22dp"
-            android:layout_marginBottom="8dp"
+            android:layout_width="@dimen/star_width"
+            android:layout_height="@dimen/star_height"
+            android:layout_marginStart="@dimen/star_margin_start"
+            android:layout_marginTop="@dimen/star_margin_top"
+            android:layout_marginBottom="@dimen/margin_bottom"
             app:layout_constraintBottom_toTopOf="@+id/company_name"
             app:layout_constraintStart_toEndOf="@+id/ticker"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.6"
             app:srcCompat="@drawable/stars" />
 
         <TextView
             android:id="@+id/current_price"
             android:layout_width="wrap_content"
-            android:layout_height="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_height="@dimen/price_height"
+            android:layout_marginTop="@dimen/price_margin_top"
+            android:layout_marginEnd="@dimen/margin_end"
             android:fontFamily="@font/montserrat_bold"
             android:text="Current price"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="@dimen/price_text_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/day_delta"
             android:layout_width="wrap_content"
-            android:layout_height="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
-            android:fontFamily="@font/montserrat_semibold"
+            android:layout_height="@dimen/delta_height"
+            android:layout_marginEnd="@dimen/margin_end"
+            android:layout_marginBottom="@dimen/margin_bottom"
+            android:fontFamily="@font/montserrat_semi_bold"
             android:text="Day delta"
             android:textColor="@color/green"
-            android:textSize="12sp"
+            android:textSize="@dimen/delta_text_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/current_price" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
-            android:layout_width="52dp"
-            android:layout_height="52dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            app:cardCornerRadius="12dp"
+            android:layout_width="@dimen/card_image_width"
+            android:layout_height="@dimen/card_image_height"
+            android:layout_marginStart="@dimen/card_margin_start"
+            android:layout_marginTop="@dimen/card_margin_top"
+            app:cardCornerRadius="@dimen/card_corner_radius"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/logo"
-                android:layout_width="52dp"
-                android:layout_height="52dp"
+                android:layout_width="@dimen/card_image_width"
+                android:layout_height="@dimen/card_image_height"
                 tools:srcCompat="@tools:sample/avatars" />
         </androidx.cardview.widget.CardView>
 

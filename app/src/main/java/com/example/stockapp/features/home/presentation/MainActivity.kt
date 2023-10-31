@@ -7,12 +7,9 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.stockapp.R
 import com.example.stockapp.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.onEmpty
-import kotlinx.coroutines.job
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -20,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
     private val adapter = StockAdapter()
-    val viewModel: MainViewModel by viewModels()
+    val viewModel: StockViewModel by viewModels()
 
     private lateinit var textView: TextView
 
@@ -37,7 +34,6 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
 
             viewModel.getStocks()
-
             viewModel.state.collectLatest { data ->
                 data?.let {
                     viewModel.setDataInStocksAdapter(data, adapter)
@@ -50,6 +46,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
     }
 
 }

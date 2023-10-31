@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
+class StockViewModel @Inject constructor(
     private val getStockDataUseCase: GetStockDataUseCase
 ) : ViewModel() {
 
@@ -25,7 +25,7 @@ class MainViewModel @Inject constructor(
 
     fun setDataInStocksAdapter(data: StockData, adapter: StockAdapter) {
         adapter.apply {
-            addStock(data.stocksName, data.stocks)
+            addStock(data.stocks)
 
         }
     }

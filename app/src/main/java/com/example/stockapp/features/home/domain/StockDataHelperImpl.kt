@@ -5,9 +5,8 @@ import com.example.stockapp.features.home.data.StockNameDTO
 
 class StockDataHelperImpl : StockDataHelper {
     override suspend fun takeStock(
-        stockNameDTOList: List<StockNameDTO>,
         stockDTOList: List<StockDTO>
     ): DataDomain {
-        return DataDomain(stockNameDTOList, stockDTOList)
+        return DataDomain(stockDTOList)
     }
 }

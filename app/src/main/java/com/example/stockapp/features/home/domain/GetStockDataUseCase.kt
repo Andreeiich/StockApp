@@ -22,7 +22,7 @@ class GetStockDataUseCase @Inject constructor(
         val nameOfCompanies: String = currentCompanies.toString().replace(" ", "")
 
         val result: DataDomain = if (nameOfCompanies.isEmpty()) {
-            stockHelper.takeStock(stockNames, serverDataStock)
+            stockHelper.takeStock(serverDataStock)
         } else {
             val currentData = repository.getAllDataOfStocks(
                 nameOfCompanies.substring(
@@ -31,7 +31,7 @@ class GetStockDataUseCase @Inject constructor(
                 )
             )
             serverDataStock = currentData
-            stockHelper.takeStock(stockNames, serverDataStock)
+            stockHelper.takeStock(serverDataStock)
         }
 
         return result.toUI()
