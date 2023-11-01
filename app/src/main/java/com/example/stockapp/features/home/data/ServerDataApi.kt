@@ -1,13 +1,11 @@
 package com.example.stockapp.features.home.data
 
-
 import com.example.stockapp.BuildConfig
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ServerDataApi {
-
 
     @GET("symbol/NASDAQ?")
     suspend fun getNameOfStock(@Query("apikey") apikey: String = STOCK_KEY): List<StockNameDTO>

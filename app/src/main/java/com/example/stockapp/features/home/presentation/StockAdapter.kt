@@ -10,7 +10,6 @@ import com.bumptech.glide.Glide
 import com.example.stockapp.R
 import com.example.stockapp.databinding.PopularStocksBinding
 import com.example.stockapp.features.home.data.StockDTO
-import com.example.stockapp.features.home.data.StockNameDTO
 
 class StockAdapter : RecyclerView.Adapter<StockAdapter.StockHolder>() {
 

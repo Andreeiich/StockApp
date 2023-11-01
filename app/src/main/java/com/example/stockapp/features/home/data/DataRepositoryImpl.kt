@@ -2,7 +2,6 @@ package com.example.stockapp.features.home.data
 
 import com.example.stockapp.features.home.domain.DataRepository
 
-
 class DataRepositoryImpl(
     private val api: ServerDataApi
 ) : DataRepository {

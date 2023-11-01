@@ -33,17 +33,18 @@ class MainActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
 
-            viewModel.getStocks()
-            viewModel.state.collectLatest { data ->
-                data?.let {
-                    viewModel.setDataInStocksAdapter(data, adapter)
-                    if (data.stocks.isEmpty()) {
-                        Toast.makeText(
-                            this@MainActivity, "Stocks didn't load,\n" +
-                                    "to try later please!", Toast.LENGTH_LONG
-                        ).show()
+            try {
+                viewModel.getStocks()
+                viewModel.state.collectLatest { data ->
+                    data?.let {
+                        viewModel.setDataInStocksAdapter(data, adapter)
                     }
                 }
+            } catch (e: NullPointerException) {
+                Toast.makeText(
+                    this@MainActivity, "Stocks didn't load,\n" +
+                            "to try later please!", Toast.LENGTH_LONG
+                ).show()
             }
         }
 

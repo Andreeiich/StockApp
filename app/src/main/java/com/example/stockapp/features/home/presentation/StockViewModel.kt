@@ -16,17 +16,20 @@ class StockViewModel @Inject constructor(
     private val _state = MutableStateFlow<StockData?>(null)
     val state = _state
 
-    fun getStocks() {
-        viewModelScope.launch {
+    suspend fun getStocks() {
+       val result = viewModelScope.launch {
             val result = getStockDataUseCase.invoke("Params")
             state.value = result
+        }
+        result.join()
+        if (state.value?.stocks == null) {
+            throw NullPointerException()
         }
     }
 
     fun setDataInStocksAdapter(data: StockData, adapter: StockAdapter) {
         adapter.apply {
             addStock(data.stocks)
-
         }
     }
 
