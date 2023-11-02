@@ -4,17 +4,13 @@ import com.example.stockapp.features.home.domain.DataRepository
 
 class DataRepositoryImpl(
     private val api: ServerDataApi
-): DataRepository {
+) : DataRepository {
 
-    override suspend fun getData() : DataDTO {
-        // условный вызов вашей апишки
-        // используйте апи здесь
-        return DataDTO(
-            title = "title",
-            subTitle = "subtitle",
-            description = "description",
-            someDumpInfo = "DumpiDump",
-            importantDataForDomain = "topSecret"
-        )
+    override suspend fun getAllDataOfStocks(stock: String): List<StockDTO> {
+        return api.getAllStock(stock)
+    }
+
+    override suspend fun getAllNameOfStocks(): List<StockNameDTO> {
+        return api.getNameOfStock()
     }
 }

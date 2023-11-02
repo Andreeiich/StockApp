@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="white">#FFFFFFFF</color>
+    <color name="white">#FFFFFF</color>
     <color name="background_snippet">#F0F4F7</color>
     <color name="background_search_input">#F0F4F7</color>
     <color name="grey">#BABABA</color>

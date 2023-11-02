@@ -1,7 +1,9 @@
 package com.example.stockapp.features.home.domain
 
-import com.example.stockapp.features.home.data.DataDTO
+import com.example.stockapp.features.home.data.StockDTO
+import com.example.stockapp.features.home.data.StockNameDTO
 
 interface DataRepository {
-    suspend fun getData(): DataDTO
+    suspend fun getAllDataOfStocks(stock: String): List<StockDTO>
+    suspend fun getAllNameOfStocks(): List<StockNameDTO>
 }

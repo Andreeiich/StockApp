@@ -2,7 +2,7 @@
     <string name="app_name">StockApp</string>
     <string name="stocks">Stocks</string>
     <string name="favourite">Favourite</string>
-    <string name="find">Find company or ticker</string>
+    <string name="find">\    Find company or ticker</string>
     <string name="Popular_requests">Popular requests</string>
     <string name="searched">You\'ve searched for this</string>
     <string name="chart">Chart</string>

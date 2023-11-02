@@ -1,12 +1,10 @@
 package com.example.stockapp.features.home.domain
 
-import com.example.stockapp.features.home.presentation.DataUI
+import com.example.stockapp.features.home.data.StockDTO
+import com.example.stockapp.features.home.presentation.StockData
 
 data class DataDomain(
-    val title: String,
-    val subTitle: String,
-    val description: String,
-    val importantDataForDomain: String
+    val stockDTOList: List<StockDTO>
 ) {
-    fun toUI() = DataUI(title, subTitle, description)
+    fun toUI() = StockData(stockDTOList)
 }

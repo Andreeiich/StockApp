@@ -1,24 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="button_radius">16dp</dimen>
-    <dimen name="button_gap">10dp</dimen>
-    <dimen name="button_padding">16dp</dimen>
-    <dimen name="button_height">56dp</dimen>
-    <dimen name="search_radius">40dp</dimen>
-    <dimen name="search_border">2dp</dimen>
-    <dimen name="search_height">48dp</dimen>
-    <dimen name="stock_radius">16dp</dimen>
-    <dimen name="stock_height">68dp</dimen>
-    <dimen name="primary_menu_height">32dp</dimen>
-    <dimen name="primary_menu_gap">20dp</dimen>
-    <dimen name="header">144dp</dimen>
-    <dimen name="chips_height">44dp</dimen>
-    <dimen name="chips_gap">10dp</dimen>
-    <dimen name="schedule_height">260dp</dimen>
-    <dimen name="schedule_border">2dp</dimen>
-    <dimen name="stocks_size_font">28sp</dimen>
-    <dimen name="stocks_container_height">32dp</dimen>
-    <dimen name="stocks_container_width">98dp</dimen>
+    <dimen name="recView_height">539dp</dimen>
+    <dimen name="recView_width">377dp</dimen>
+    <dimen name="recView_margin_start">16dp</dimen>
+    <dimen name="recView_margin_end">16dp</dimen>
 
+    <dimen name="text_input_frame_width">377dp</dimen>
+    <dimen name="text_input_frame_height">55dp</dimen>
+    <dimen name="text_input_frame_margin">16dp</dimen>
+
+    <dimen name="text_input_inner_height">48dp</dimen>
+    <dimen name="text_input_inner_text_size">16sp</dimen>
+    <dimen name="text_input_inner_drawable_padding">8dp</dimen>
+
+    <dimen name="stocks_size_font">28sp</dimen>
+    <dimen name="stocks_width">98dp</dimen>
+    <dimen name="stocks_height">32dp</dimen>
+    <dimen name="stocks_margin_start">24dp</dimen>
+    <dimen name="stocks_margin_top">16dp</dimen>
+
+    <dimen name="favourite_height">24dp</dimen>
+    <dimen name="favourite_width">89dp</dimen>
+    <dimen name="favourite_margin_top">24dp</dimen>
+    <dimen name="favourite_margin_start">16dp</dimen>
+    <dimen name="favourite_margin_end">177dp</dimen>
+    <dimen name="favourite_text_size">18sp</dimen>
+
+    <dimen name="stocks_container_height">68dp</dimen>
+    <dimen name="stocks_container_margin_top">8dp</dimen>
+
+    <dimen name="margin_end">16dp</dimen>
+    <dimen name="margin_bottom">8dp</dimen>
+
+    <dimen name="card_image_width">52dp</dimen>
+    <dimen name="card_image_height">52dp</dimen>
+    <dimen name="card_margin_start">8dp</dimen>
+    <dimen name="card_margin_top">8dp</dimen>
+    <dimen name="card_corner_radius">12dp</dimen>
+
+    <dimen name="delta_height">16dp</dimen>
+    <dimen name="delta_text_size">12sp</dimen>
+
+    <dimen name="price_height">24dp</dimen>
+    <dimen name="price_margin_top">16dp</dimen>
+    <dimen name="price_text_size">18sp</dimen>
+    
+    <dimen name="star_height">16dp</dimen>
+    <dimen name="star_width">16dp</dimen>
+    <dimen name="star_margin_start">4dp</dimen>
+    <dimen name="star_margin_top">22dp</dimen>
+    
+    <dimen name="company_margin_start">8dp</dimen>
+    <dimen name="company_height">16dp</dimen>
+    <dimen name="company_text_size">11sp</dimen>
+    <dimen name="company_width">125dp</dimen>
+
+    <dimen name="ticker_height">24dp</dimen>
+    <dimen name="ticker_margin_start">8dp</dimen>
+    <dimen name="ticker_margin_top">16dp</dimen>
+    <dimen name="ticker_text_size">18sp</dimen>
+   
 </resources>
