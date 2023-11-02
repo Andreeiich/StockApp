@@ -14,7 +14,7 @@ interface ServerDataApi {
     suspend fun getAllStock(
         @Path("tickerSymbol") tickerSymbol: String,
         @Query("apikey") apikey: String = STOCK_KEY
-    ): MutableList<StockDTO>
+    ): List<StockDTO>
 
     companion object {
         const val BASE_URL = "https://financialmodelingprep.com/api/v3/"

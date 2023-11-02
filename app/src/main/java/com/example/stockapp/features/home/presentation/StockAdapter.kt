@@ -19,7 +19,6 @@ class StockAdapter : RecyclerView.Adapter<StockAdapter.StockHolder>() {
     class StockHolder(item: View) : RecyclerView.ViewHolder(item) {
         val binding = PopularStocksBinding.bind(item)
 
-        @SuppressLint("ResourceAsColor")
         fun bind(stock: StockDTO, position: Int) = with(binding) {
 
             val changesPercentage: Double =
