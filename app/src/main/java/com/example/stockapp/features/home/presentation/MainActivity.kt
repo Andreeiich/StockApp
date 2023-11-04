@@ -52,14 +52,18 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        binding.textInputInner.setOnClickListener() {
+            binding.textInputFrame.startIconDrawable = (getDrawable(R.drawable.back))
+            binding.textInputInner.setHint("")
+        }
 
         binding.textInputInner.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 try {
+                    binding.textInputFrame.startIconDrawable = (getDrawable(R.drawable.back))
                     viewModel.searchDataStocks(
                         binding.textInputInner.text.toString().lowercase(),
                         adapter
@@ -72,7 +76,11 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun afterTextChanged(s: Editable?) {
-
+                if (binding.textInputInner.text?.equals("") == true || binding.textInputInner.text.isNullOrEmpty()) {
+                    binding.textInputFrame.startIconDrawable = (getDrawable(R.drawable.search))
+                    binding.textInputInner.setHint(getString(R.string.find))
+                    binding.textInputInner.clearFocus()
+                }
             }
         })
     }
