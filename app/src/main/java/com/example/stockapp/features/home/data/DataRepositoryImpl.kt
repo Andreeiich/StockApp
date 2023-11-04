@@ -13,4 +13,8 @@ class DataRepositoryImpl(
     override suspend fun getAllNameOfStocks(): List<StockNameDTO> {
         return api.getNameOfStock()
     }
+
+    override suspend fun getDataOfStockByQuery(stock: String): List<StockNameDTO> {
+        return api.searchStocks(stock)
+    }
 }

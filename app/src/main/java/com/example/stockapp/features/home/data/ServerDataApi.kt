@@ -16,9 +16,18 @@ interface ServerDataApi {
         @Query("apikey") apikey: String = STOCK_KEY
     ): List<StockDTO>
 
+    @GET("search-ticker?")
+    suspend fun searchStocks(
+        @Query("query") query: String,
+        @Query("limit") limit: String = SEARCH_STOCK_LIMIT,
+        @Query("exchange") exchange: String = EXCHANGE,
+        @Query("apikey") apikey: String = STOCK_KEY
+    ): List<StockNameDTO>
+
     companion object {
         const val BASE_URL = "https://financialmodelingprep.com/api/v3/"
         const val STOCK_KEY = BuildConfig.KEY_STOCKS
+        const val SEARCH_STOCK_LIMIT = "5"
+        const val EXCHANGE = "NASDAQ"
     }
-
 }

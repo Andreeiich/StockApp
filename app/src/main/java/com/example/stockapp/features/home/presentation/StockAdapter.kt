@@ -1,6 +1,5 @@
 package com.example.stockapp.features.home.presentation
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,8 +12,8 @@ import com.example.stockapp.features.home.data.StockDTO
 
 class StockAdapter : RecyclerView.Adapter<StockAdapter.StockHolder>() {
 
-
-    var stockList: MutableList<StockDTO> = arrayListOf()
+    lateinit var startedData: StockData
+    var stockList: List<StockDTO> = arrayListOf()
 
     class StockHolder(item: View) : RecyclerView.ViewHolder(item) {
         val binding = PopularStocksBinding.bind(item)
@@ -70,8 +69,16 @@ class StockAdapter : RecyclerView.Adapter<StockAdapter.StockHolder>() {
     }
 
     fun addStock(stock: List<StockDTO>) {
-        stockList.addAll(stock)
+        stockList = stock
         notifyDataSetChanged()
     }
 
+    fun setStartingData(startedStocks: StockData) {
+        startedData = startedStocks
+    }
+
+    fun retrieveStartingData() {
+        stockList = startedData.stocks
+        notifyDataSetChanged()
+    }
 }

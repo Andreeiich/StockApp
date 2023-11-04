@@ -13,5 +13,7 @@
     <string name="Y">1Y</string>
     <string name="M">6M</string>
     <string name="idea">Idea</string>
+    <string name="Stocks_unloaded">Stocks didn\'t load,to try later please!</string>
+    <string name="No_name">There is no stock with this name.</string>
 
 </resources>

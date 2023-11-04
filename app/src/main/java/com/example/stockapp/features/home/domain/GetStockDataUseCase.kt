@@ -1,8 +1,6 @@
 package com.example.stockapp.features.home.domain
 
 import com.example.stockapp.core.domain.CoroutinesUseCase
-import com.example.stockapp.features.home.data.StockDTO
-import com.example.stockapp.features.home.data.StockNameDTO
 import com.example.stockapp.features.home.presentation.StockData
 import javax.inject.Inject
 
@@ -21,17 +19,17 @@ class GetStockDataUseCase @Inject constructor(
         val companyNames = stockNames.map { it.companyName }
         val nameOfCompanies: String = companyNames.toString().replace(" ", "")
 
-        if(nameOfCompanies.isEmpty() || stockNamesAll.isEmpty()){
+        if (nameOfCompanies.isEmpty() || stockNamesAll.isEmpty()) {
             return null
         }
-            val currentData = repository.getAllDataOfStocks(
-                nameOfCompanies.substring(
-                    1,
-                    nameOfCompanies.length - 1
-                )
+        val currentData = repository.getAllDataOfStocks(
+            nameOfCompanies.substring(
+                1,
+                nameOfCompanies.length - 1
             )
+        )
 
-            val result = stockHelper.takeStock(currentData)
+        val result = stockHelper.takeStock(currentData)
 
         return result.toUI()
     }
