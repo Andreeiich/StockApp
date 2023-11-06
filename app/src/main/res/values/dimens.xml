@@ -7,7 +7,7 @@
     <dimen name="recView_margin_end">16dp</dimen>
 
     <dimen name="text_input_frame_width">377dp</dimen>
-    <dimen name="text_input_frame_height">55dp</dimen>
+    <dimen name="text_input_frame_height">48dp</dimen>
     <dimen name="text_input_frame_margin">16dp</dimen>
 
     <dimen name="text_input_inner_height">48dp</dimen>

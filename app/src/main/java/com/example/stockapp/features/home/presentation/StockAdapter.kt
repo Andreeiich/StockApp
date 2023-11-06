@@ -12,8 +12,8 @@ import com.example.stockapp.features.home.data.StockDTO
 
 class StockAdapter : RecyclerView.Adapter<StockAdapter.StockHolder>() {
 
-    lateinit var startedData: StockData
-    var stockList: List<StockDTO> = arrayListOf()
+    private lateinit var startedData: StockData
+    private var stockList: List<StockDTO> = arrayListOf()
 
     class StockHolder(item: View) : RecyclerView.ViewHolder(item) {
         val binding = PopularStocksBinding.bind(item)

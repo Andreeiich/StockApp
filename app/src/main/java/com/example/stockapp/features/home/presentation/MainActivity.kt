@@ -18,9 +18,9 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
     private val adapter = StockAdapter()
-    val viewModel: StockViewModel by viewModels()
+    private val viewModel: StockViewModel by viewModels()
 
     private lateinit var textView: TextView
 
@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {
                 if (binding.textInputInner.text?.equals("") == true || binding.textInputInner.text.isNullOrEmpty()) {
                     binding.textInputFrame.startIconDrawable = (getDrawable(R.drawable.search))
-                    binding.textInputInner.setHint(getString(R.string.find))
+                    binding.textInputInner.hint
                     binding.textInputInner.clearFocus()
                 }
             }

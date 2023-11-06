@@ -16,7 +16,7 @@ interface ServerDataApi {
         @Query("apikey") apikey: String = STOCK_KEY
     ): List<StockDTO>
 
-    @GET("search-ticker?")
+    @GET("search?")
     suspend fun searchStocks(
         @Query("query") query: String,
         @Query("limit") limit: String = SEARCH_STOCK_LIMIT,
