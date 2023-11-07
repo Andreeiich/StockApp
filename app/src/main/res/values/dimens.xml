@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="recView_height">539dp</dimen>
+    <dimen name="recView_height">600dp</dimen>
     <dimen name="recView_width">377dp</dimen>
     <dimen name="recView_margin_start">16dp</dimen>
     <dimen name="recView_margin_end">16dp</dimen>
 
     <dimen name="text_input_frame_width">377dp</dimen>
-    <dimen name="text_input_frame_height">48dp</dimen>
+    <dimen name="text_input_frame_height">56dp</dimen>
     <dimen name="text_input_frame_margin">16dp</dimen>
+    <dimen name="text_input_frame_margin_top">4dp</dimen>
 
     <dimen name="text_input_inner_height">48dp</dimen>
     <dimen name="text_input_inner_text_size">16sp</dimen>
@@ -17,15 +18,17 @@
     <dimen name="stocks_size_font">28sp</dimen>
     <dimen name="stocks_width">98dp</dimen>
     <dimen name="stocks_height">32dp</dimen>
-    <dimen name="stocks_margin_start">24dp</dimen>
+    <dimen name="stocks_margin_start">14dp</dimen>
     <dimen name="stocks_margin_top">16dp</dimen>
+    <dimen name="stocks_margin_bottom">8dp</dimen>
 
     <dimen name="favourite_height">24dp</dimen>
     <dimen name="favourite_width">89dp</dimen>
-    <dimen name="favourite_margin_top">24dp</dimen>
-    <dimen name="favourite_margin_start">16dp</dimen>
+    <dimen name="favourite_margin_top">10dp</dimen>
+    <dimen name="favourite_margin_start">8dp</dimen>
     <dimen name="favourite_margin_end">177dp</dimen>
     <dimen name="favourite_text_size">18sp</dimen>
+    <dimen name="favourite_margin_bottom">8dp</dimen>
 
     <dimen name="stocks_container_height">68dp</dimen>
     <dimen name="stocks_container_margin_top">8dp</dimen>

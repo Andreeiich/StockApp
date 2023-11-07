@@ -8,29 +8,28 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.stockapp.R
 import com.example.stockapp.databinding.PopularStocksBinding
-import com.example.stockapp.features.home.data.StockDTO
 
 class StockAdapter : RecyclerView.Adapter<StockAdapter.StockHolder>() {
 
-    private lateinit var startedData: StockData
-    private var stockList: List<StockDTO> = arrayListOf()
+    private lateinit var startedData: MutableList<StockData>
+    private var stockList: MutableList<StockData> = arrayListOf()
 
     class StockHolder(item: View) : RecyclerView.ViewHolder(item) {
         val binding = PopularStocksBinding.bind(item)
 
-        fun bind(stock: StockDTO, position: Int) = with(binding) {
+        fun bind(stock: StockData, position: Int) = with(binding) {
 
             val changesPercentage: Double =
-                ((stock.price - (stock.price + Math.abs(stock.changes))) / (stock.price + stock.changes)) * 100
+                ((stock.currentPrice - (stock.currentPrice + Math.abs(stock.dayDelta))) / (stock.currentPrice + stock.dayDelta)) * 100
 
-            ticker.text = stock.symbol
+            ticker.text = stock.ticker
             companyName.text = stock.companyName
             companyName.isSelected = true
 
-            currentPrice.text = "$".plus(stock.price.toString())
+            currentPrice.text = "$".plus(stock.currentPrice.toString())
 
-            val signOfCurrency = if (stock.changes >= 0) "+$" else "-$"
-            dayDelta.text = signOfCurrency.plus(Math.abs(stock.changes)).plus(" (")
+            val signOfCurrency = if (stock.dayDelta >= 0) "+$" else "-$"
+            dayDelta.text = signOfCurrency.plus(Math.abs(stock.dayDelta)).plus(" (")
                 .plus(String.format("%.2f", Math.abs(changesPercentage)))
                 .plus("%)")
 
@@ -45,7 +44,7 @@ class StockAdapter : RecyclerView.Adapter<StockAdapter.StockHolder>() {
                 )
             )
 
-            val changesPercentageColor = if (stock.changes < 0) R.color.red else R.color.green
+            val changesPercentageColor = if (stock.dayDelta < 0) R.color.red else R.color.green
             dayDelta.setTextColor(ContextCompat.getColor(dayDelta.context, changesPercentageColor))
 
             Glide.with(this@StockHolder.itemView.context).load(stock.image)
@@ -68,17 +67,19 @@ class StockAdapter : RecyclerView.Adapter<StockAdapter.StockHolder>() {
 
     }
 
-    fun addStock(stock: List<StockDTO>) {
-        stockList = stock
+    fun addStock(stock: MutableList<StockData>?) {
+        if (stock != null) {
+            stockList = stock
+        }
         notifyDataSetChanged()
     }
 
-    fun setStartingData(startedStocks: StockData) {
+    fun setStartingData(startedStocks: MutableList<StockData>) {
         startedData = startedStocks
     }
 
     fun retrieveStartingData() {
-        stockList = startedData.stocks
+        stockList = startedData
         notifyDataSetChanged()
     }
 }

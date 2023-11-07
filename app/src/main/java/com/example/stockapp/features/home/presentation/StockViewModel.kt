@@ -17,7 +17,7 @@ class StockViewModel @Inject constructor(
     private val getSearchStockDataUseCase: GetSearchStockDataUseCase
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow<StockData?>(null)
+    private val _state = MutableStateFlow<MutableList<StockData>?>(null)
     val state = _state
     private var searchJob: Job? = null
     suspend fun getStocks() {
@@ -26,15 +26,17 @@ class StockViewModel @Inject constructor(
             state.value = result
         }
         result.join()
-        if (state.value?.stocks == null) {
+        if (state.value == null) {
             throw NullPointerException()
         }
     }
 
-    fun setDataInStocksAdapter(data: StockData, adapter: StockAdapter) {
+    fun setDataInStocksAdapter(data: MutableList<StockData>?, adapter: StockAdapter) {
         adapter.apply {
-            addStock(data.stocks)
-            setStartingData(data)
+            addStock(data)
+            if (data != null) {
+                setStartingData(data)
+            }
         }
     }
 
@@ -47,7 +49,7 @@ class StockViewModel @Inject constructor(
             searchJob = viewModelScope.launch {
                 delay(400)
                 val result = search.let { getSearchStockDataUseCase.invoke(it) }
-                result?.stocks?.let { adapter.addStock(it) }
+                result?.let { adapter.addStock(it) }
                 if (result == null) {
                     throw NullPointerException()
                 }
