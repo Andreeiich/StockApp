@@ -14,12 +14,16 @@ import javax.inject.Inject
 @HiltViewModel
 class StockViewModel @Inject constructor(
     private val getStockDataUseCase: GetStockDataUseCase,
-    private val getSearchStockDataUseCase: GetSearchStockDataUseCase
+    private val getSearchStockDataUseCase: GetSearchStockDataUseCase,
 ) : ViewModel() {
+
+    @Inject
+    lateinit var stockAdapter: StockAdapter
 
     private val _state = MutableStateFlow<MutableList<StockData>?>(null)
     val state = _state
     private var searchJob: Job? = null
+
     suspend fun getStocks() {
         val result = viewModelScope.launch {
             val result = getStockDataUseCase.invoke("Params")
@@ -31,30 +35,22 @@ class StockViewModel @Inject constructor(
         }
     }
 
-    fun setDataInStocksAdapter(data: MutableList<StockData>?, adapter: StockAdapter) {
-        adapter.apply {
-            addStock(data)
-            if (data != null) {
-                setStartingData(data)
-            }
-        }
-    }
-
-    fun searchDataStocks(search: String?, adapter: StockAdapter) {
+    fun searchDataStocks(search: String?) {
         searchJob?.cancel()
-
+        var result: MutableList<StockData>? = ArrayList()
         if (search.isNullOrEmpty()) {
-            adapter.retrieveStartingData()
+            stockAdapter.retrieveStartingData()
         } else {
             searchJob = viewModelScope.launch {
                 delay(400)
-                val result = search.let { getSearchStockDataUseCase.invoke(it) }
-                result?.let { adapter.addStock(it) }
+                result = search.let { getSearchStockDataUseCase.invoke(it) }
+                stockAdapter.addStock(result)
                 if (result == null) {
                     throw NullPointerException()
+                } else {
+
                 }
             }
         }
-
     }
 }

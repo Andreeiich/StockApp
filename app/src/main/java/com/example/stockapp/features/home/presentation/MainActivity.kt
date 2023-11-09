@@ -12,17 +12,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.stockapp.R
 import com.example.stockapp.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
+    @Inject
+    lateinit var adapter: StockAdapter
     private lateinit var binding: ActivityMainBinding
-    private val adapter = StockAdapter()
     private val viewModel: StockViewModel by viewModels()
-
-    private lateinit var textView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,10 +43,10 @@ class MainActivity : AppCompatActivity() {
                 viewModel.getStocks()
                 viewModel.state.collectLatest { data ->
                     data?.let {
-                        viewModel.setDataInStocksAdapter(data, adapter)
+                        adapter.addStock(data)
+                        adapter.setStartingData(data)
                     }
                 }
-
             } catch (e: NullPointerException) {
                 Toast.makeText(
                     this@MainActivity, getString(R.string.Stocks_unloaded), Toast.LENGTH_LONG
@@ -58,15 +60,19 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.textInputInner.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            override fun beforeTextChanged(
+                s: CharSequence?,
+                start: Int,
+                count: Int,
+                after: Int
+            ) {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 try {
                     binding.textInputFrame.startIconDrawable = (getDrawable(R.drawable.back))
                     viewModel.searchDataStocks(
-                        binding.textInputInner.text.toString().lowercase(),
-                        adapter
+                        binding.textInputInner.text.toString().lowercase()
                     )
                 } catch (e: NullPointerException) {
                     Toast.makeText(

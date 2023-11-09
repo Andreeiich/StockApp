@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
 android {
@@ -17,7 +18,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "KEY_STOCKS", project.KEY_STOCKS)
+
 
     }
 
@@ -46,7 +47,12 @@ android {
 kapt {
     correctErrorTypes true
 }
-
+secrets{
+    propertiesFileName 'stock.properties'
+    defaultPropertiesFileName = 'stock.default.properties'
+    ignoreList.add("keyToIgnore")
+    ignoreList.add("sdk.*")       
+}
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.8.0'
