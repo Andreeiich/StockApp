@@ -4,6 +4,7 @@ import com.example.stockapp.core.domain.CoroutinesUseCase
 import com.example.stockapp.features.home.data.StockDTO
 import com.example.stockapp.features.home.data.StockNameDTO
 import com.example.stockapp.features.home.presentation.StockData
+import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 class GetSearchStockDataUseCase @Inject constructor(

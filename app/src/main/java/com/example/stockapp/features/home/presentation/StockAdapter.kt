@@ -11,8 +11,8 @@ import com.example.stockapp.databinding.PopularStocksBinding
 
 class StockAdapter : RecyclerView.Adapter<StockAdapter.StockHolder>() {
 
-    private lateinit var startedData: MutableList<StockData>
-    private var stockList: MutableList<StockData> = arrayListOf()
+    private lateinit var startedData: List<StockData>
+    private var stockList: List<StockData> = arrayListOf()
 
     class StockHolder(item: View) : RecyclerView.ViewHolder(item) {
         val binding = PopularStocksBinding.bind(item)
@@ -67,15 +67,17 @@ class StockAdapter : RecyclerView.Adapter<StockAdapter.StockHolder>() {
 
     }
 
-    fun addStock(stock: MutableList<StockData>?) {
+    fun addStock(stock: List<StockData>?) {
         if (stock != null) {
             stockList = stock
         }
         notifyDataSetChanged()
     }
 
-    fun setStartingData(startedStocks: MutableList<StockData>) {
-        startedData = startedStocks
+    fun setStartingData(startedStocks: List<StockData>?) {
+        if (startedStocks != null) {
+            startedData = startedStocks
+        }
     }
 
     fun retrieveStartingData() {
