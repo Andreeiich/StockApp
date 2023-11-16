@@ -4,24 +4,27 @@ import com.example.stockapp.core.domain.CoroutinesUseCase
 import com.example.stockapp.features.home.data.StockDTO
 import com.example.stockapp.features.home.data.StockNameDTO
 import com.example.stockapp.features.home.presentation.StockData
+import kotlinx.coroutines.delay
 import javax.inject.Inject
 
-class GetStockDataUseCase @Inject constructor(
+class GetSearchStockDataUseCase @Inject constructor(
     private val repository: DataRepository,
     private val stockHelper: StockDataHelper
 ) : CoroutinesUseCase<String, MutableList<StockData>?> {
 
     override suspend fun invoke(params: String): MutableList<StockData>? {
 
-        val stockNamesAll = getNamesOfStocks()
-        val nameOfCompanies = mappingCompanyName(stockNamesAll)
+        val searchData = repository.getDataOfStockByQuery(params)
+        val nameOfCompanies = mappingCompanyName(searchData)
 
-        if (nameOfCompanies.isEmpty() || stockNamesAll.isEmpty()) {
+        if (nameOfCompanies.isEmpty()) {
             return null
         }
 
         val dataForRequest = getStringForRequest(nameOfCompanies)
-        val currentData = getAllStocks(dataForRequest)
+
+        val currentData =
+            repository.getAllDataOfStocks(dataForRequest)
 
         return prepareDataForUI(currentData)
     }
@@ -34,27 +37,10 @@ class GetStockDataUseCase @Inject constructor(
         )
     }
 
-    private suspend fun getAllStocks(nameOfCompanies: String): List<StockDTO> {
-        val result = repository.getAllDataOfStocks(nameOfCompanies)
-        return result
-    }
-
-    private fun mappingCompanyName(stockNamesAll: List<StockNameDTO>): String {
-        val companyNames = stockNamesAll.map { it.companyName }
-        val nameOfCompanies: String = companyNames.toString().replace(" ", "")
+    private fun mappingCompanyName(searchData: List<StockNameDTO>): String {
+        val companyName = searchData.map { it.companyName }
+        val nameOfCompanies = companyName.toString().replace(" ", "")
         return nameOfCompanies
-    }
-
-    private suspend fun getNamesOfStocks(): List<StockNameDTO> {
-        val stockNamesAll = repository.getAllNameOfStocks()
-        if (stockNamesAll.isNotEmpty()) {
-            return stockNamesAll.subList(
-                LIST_START,
-                LIST_END
-            )
-        } else {
-            return stockNamesAll
-        }
     }
 
     private suspend fun prepareDataForUI(data: List<StockDTO>): MutableList<StockData> {
@@ -68,8 +54,5 @@ class GetStockDataUseCase @Inject constructor(
         return result
     }
 
-    companion object {
-        const val LIST_START = 0
-        const val LIST_END = 10
-    }
+
 }

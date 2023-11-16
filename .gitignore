@@ -8,4 +8,5 @@
 .externalNativeBuild
 .cxx
 local.properties
-gradle.properties
+/stock.properties
+/stock.default.properties
