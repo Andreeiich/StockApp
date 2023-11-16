@@ -145,6 +145,6 @@ class MainActivity : AppCompatActivity() {
     fun hideProgressBar(progressBar: ProgressBar) {
         progressBar.visibility = View.GONE
     }
-  
+
 }
 
