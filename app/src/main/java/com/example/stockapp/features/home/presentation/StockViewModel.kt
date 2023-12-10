@@ -1,9 +1,11 @@
 package com.example.stockapp.features.home.presentation
 
+import android.view.MotionEvent
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.stockapp.features.home.domain.GetStockDataUseCase
 import com.example.stockapp.features.home.domain.GetSearchStockDataUseCase
+import com.example.stockapp.features.home.domain.UserSearchHistoryService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.coroutineScope
@@ -18,15 +20,18 @@ import javax.inject.Inject
 class StockViewModel @Inject constructor(
     private val getStockDataUseCase: GetStockDataUseCase,
     private val getSearchStockDataUseCase: GetSearchStockDataUseCase,
-) : ViewModel() {
+    private val getRequests: UserSearchHistoryService,
+   ) : ViewModel() {
 
 
     private val _state = MutableStateFlow<List<StockData>?>(null)
     private val _search = MutableStateFlow<List<StockData>?>(null)
+    private val _requests = MutableStateFlow<List<SearchData>?>(null)
+    private val _popularRequests = MutableStateFlow<List<SearchData>?>(null)
     val searched = _search
     val state = _state
-
-    private var searchJob: Job? = null
+    val request = _requests
+    val popularRequests = _popularRequests
 
     suspend fun getStocks() {
         val result = viewModelScope.launch {
@@ -40,6 +45,7 @@ class StockViewModel @Inject constructor(
     }
 
     suspend fun searchDataStocks(search: String) {
+
         val result = search.let { getSearchStockDataUseCase.invoke(it) }
         if (result == null || result.isEmpty()) {
             searched.value = null
@@ -47,4 +53,20 @@ class StockViewModel @Inject constructor(
             searched.value = result
         }
     }
+
+    fun getRequestsOfUser(): MutableList<SearchData> {
+        request.value = getRequests.getHadRequests()
+        return request.value as MutableList<SearchData>
+    }
+
+    fun getPopularRequests(): MutableList<SearchData> {
+        popularRequests.value = getRequests.getPopularRequests()
+        return popularRequests.value as MutableList<SearchData>
+    }
+
+    fun changeListRequestsOfUser(request: String) {
+        getRequests.changeListRequestsOfUser(request)
+    }
+
+
 }

@@ -5,6 +5,8 @@ import com.example.stockapp.features.home.data.ServerDataApi
 import com.example.stockapp.features.home.domain.StockDataHelper
 import com.example.stockapp.features.home.domain.StockDataHelperImpl
 import com.example.stockapp.features.home.domain.DataRepository
+import com.example.stockapp.features.home.domain.SearchDataHelper
+import com.example.stockapp.features.home.domain.SearchDataHelperImpl
 import com.example.stockapp.features.home.presentation.StockAdapter
 import dagger.Module
 import dagger.Provides
@@ -36,12 +38,18 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideBussnesLogicObject(): StockDataHelper {
+    fun provideBusinessLogicObject(): StockDataHelper {
         return StockDataHelperImpl()
     }
     @Provides
     @Singleton
     fun provideStockAdapter():StockAdapter{
         return StockAdapter()
+    }
+
+    @Provides
+    @Singleton
+    fun provideBusinessLogicSearch():SearchDataHelper{
+        return SearchDataHelperImpl()
     }
 }

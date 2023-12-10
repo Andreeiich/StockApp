@@ -6,6 +6,7 @@
     <dimen name="recView_margin_start">16dp</dimen>
     <dimen name="recView_margin_end">16dp</dimen>
     <dimen name="recView_margin_top">17dp</dimen>
+    <dimen name="recView_margin_top_searched">8dp</dimen>
 
     <dimen name="text_input_frame_width">377dp</dimen>
     <dimen name="text_input_frame_height">48dp</dimen>
@@ -68,5 +69,28 @@
     <dimen name="ticker_margin_start">8dp</dimen>
     <dimen name="ticker_margin_top">16dp</dimen>
     <dimen name="ticker_text_size">18sp</dimen>
-   
+
+    <dimen name="search_stock_margin">4dp</dimen>
+    <dimen name="search_stock_text_size">12sp</dimen>
+
+    <dimen name="popular_requests_marginStart">20dp</dimen>
+    <dimen name="popular_requests_marginTop">24dp</dimen>
+    <dimen name="popular_requests_marginEnd">329dp</dimen>
+
+    <dimen name="you_have_searched_marginStart">17dp</dimen>
+    <dimen name="you_have_searched_marginTop">16dp</dimen>
+    <dimen name="you_have_searched_marginEnd">73dp</dimen>
+
+    <dimen name="stocksForSearch_size_text">18sp</dimen>
+    <dimen name="stocksForSearch_margin_Top">48dp</dimen>
+    <dimen name="stocksForSearch_height">24dp</dimen>
+
+    <dimen name="show_more_margin_Top">48dp</dimen>
+    <dimen name="show_more_margin_bottom">11dp</dimen>
+    <dimen name="show_more_text_size">12sp</dimen>
+    <dimen name="show_more_height">16dp</dimen>
+
+    <dimen name="line_height">3dp</dimen>
+    <dimen name="line_margin_Top">24dp</dimen>
+
 </resources>

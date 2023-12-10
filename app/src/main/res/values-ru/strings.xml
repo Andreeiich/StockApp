@@ -15,5 +15,6 @@
     <string name="idea">Представление</string>
     <string name="Stocks_unloaded">Акции не загружены,попробуйте позже,пожалуйста!</string>
     <string name="No_name">Нет акций с таким именем</string>
+    <string name="show_more">Показать еще</string>
 
 </resources>
