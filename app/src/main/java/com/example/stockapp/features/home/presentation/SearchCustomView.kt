@@ -2,18 +2,14 @@ package com.example.stockapp.features.home.presentation
 
 import android.content.Context
 import android.graphics.Rect
-import android.os.Handler
-import android.os.Looper
-import android.text.Editable
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
 import com.example.stockapp.R
+import kotlin.properties.Delegates
 
 class SearchCustomView @JvmOverloads constructor(
     context: Context,
@@ -21,65 +17,62 @@ class SearchCustomView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : ViewGroup(context, attrs, defStyleAttr) {
 
-    var viewListener: CustomViewListener? = null
+    private var transferInfo: CustomViewTransferInfo? = null
+    fun setTranfer(activity: MainActivity) {
+        transferInfo = activity
+    }
 
-    private var gravity = Gravity.CENTER_HORIZONTAL or Gravity.TOP
+    private var gravity = Gravity.LEFT or Gravity.TOP
     private val widthList = ArrayList<Int>()
+
+    private var widthSize by Delegates.notNull<Int>()
+    private var heightSize by Delegates.notNull<Int>()
+    private var widthMode by Delegates.notNull<Int>()
+    private var heightMode by Delegates.notNull<Int>()
+
+    private var childWidthType = View.MeasureSpec.EXACTLY
+    private var childWidth: Int = 0
+    private var childHeightType = View.MeasureSpec.UNSPECIFIED
+    private var childHeight: Int = 0
+
+    private var height: Int = 0
+    private var lineWidth: Int = 0
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
 
-        val widthSize = MeasureSpec.getSize(widthMeasureSpec)
-        val heightSize = MeasureSpec.getSize(heightMeasureSpec)
-        val widthMode = MeasureSpec.getMode(widthMeasureSpec)
-        val heightMode = MeasureSpec.getMode(heightMeasureSpec)
+        getSize(widthMeasureSpec, heightMeasureSpec)
+        getMode(widthMeasureSpec, heightMeasureSpec)
 
         var width = 0
         var height = 10
-
         var lineWidth = 0
 
-        for (i in 0 until childCount) {
-
-            val v = getChildAt(i)
-
-            if (v.visibility == View.GONE) {
+        for (index in 0 until childCount) {
+            val currentView = getChildAt(index)
+            if (currentView.visibility == View.GONE) {
                 continue
             }
 
-            val lp = v.layoutParams as LayoutParams
-            var childWidthType = View.MeasureSpec.EXACTLY
-            var childWidth = lp.width
+            val lp = currentView.layoutParams as LayoutParams
+            childWidthType = View.MeasureSpec.EXACTLY
+            childWidth = lp.width
+            onMeasureWidthOfChild(widthSize, lp)
 
-            if (lp.width == ViewGroup.LayoutParams.MATCH_PARENT) {
-                childWidthType = View.MeasureSpec.EXACTLY
-                childWidth = widthSize - paddingLeft - paddingRight + lp.leftMargin + lp.rightMargin
-            } else if (lp.width == ViewGroup.LayoutParams.WRAP_CONTENT) {
-                childWidthType = View.MeasureSpec.AT_MOST
-                childWidth = widthSize - paddingLeft - paddingRight + lp.leftMargin + lp.rightMargin
-            }
+            childHeightType = View.MeasureSpec.UNSPECIFIED
+            childHeight = 0
+            onMeasureHeightOfChild(heightSize, lp)
 
-            var childHeightType = View.MeasureSpec.UNSPECIFIED
-            var childHeight = 0
-
-            if (lp.height == ViewGroup.LayoutParams.WRAP_CONTENT) {
-                childHeightType = View.MeasureSpec.AT_MOST
-                childHeight =
-                    heightSize - paddingTop - paddingBottom + lp.topMargin + lp.bottomMargin
-            } else if (lp.height >= 0) {
-                childHeightType = View.MeasureSpec.EXACTLY
-                childHeight = lp.height
-            }
-
-            v.measure(
+            currentView.measure(
                 View.MeasureSpec.makeMeasureSpec(childWidth, childWidthType),
                 View.MeasureSpec.makeMeasureSpec(childHeight, childHeightType)
             )
 
-            val childWidthReal = v.measuredWidth + lp.leftMargin + lp.rightMargin
-            val childHeightReal = v.measuredHeight + lp.topMargin + lp.bottomMargin
+            val childWidthReal = currentView.measuredWidth + lp.leftMargin + lp.rightMargin
+            val childHeightReal = currentView.measuredHeight + lp.topMargin + lp.bottomMargin
 
-            if (lineWidth + childWidthReal > widthSize) { // переходим на следующую строку
+            // переходим на следующую строку,если общее количество childs не убирается
+            if (lineWidth + childWidthReal > widthSize) {
                 width = Math.max(lineWidth, childWidthReal)
                 lineWidth = childWidthReal
                 height += childHeightReal
@@ -96,46 +89,60 @@ class SearchCustomView @JvmOverloads constructor(
         setMeasuredDimension(width, height)
     }
 
+    private fun getSize(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        widthSize = MeasureSpec.getSize(widthMeasureSpec)
+        heightSize = MeasureSpec.getSize(heightMeasureSpec)
+    }
+
+    private fun getMode(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        widthMode = MeasureSpec.getMode(widthMeasureSpec)
+        heightMode = MeasureSpec.getMode(heightMeasureSpec)
+    }
+
+    private fun onMeasureWidthOfChild(widthSize: Int, lp: LayoutParams) {
+        if (lp.width == ViewGroup.LayoutParams.MATCH_PARENT) {
+            childWidthType = View.MeasureSpec.EXACTLY
+            childWidth = widthSize - paddingLeft - paddingRight + lp.leftMargin + lp.rightMargin
+        } else if (lp.width == ViewGroup.LayoutParams.WRAP_CONTENT) {
+            childWidthType = View.MeasureSpec.AT_MOST
+            childWidth = widthSize - paddingLeft - paddingRight + lp.leftMargin + lp.rightMargin
+        }
+    }
+
+    private fun onMeasureHeightOfChild(heightSize: Int, lp: LayoutParams) {
+        if (lp.height == ViewGroup.LayoutParams.WRAP_CONTENT) {
+            childHeightType = View.MeasureSpec.AT_MOST
+            childHeight =
+                heightSize - paddingTop - paddingBottom + lp.topMargin + lp.bottomMargin
+        } else if (lp.height >= 0) {
+            childHeightType = View.MeasureSpec.EXACTLY
+            childHeight = lp.height
+        }
+    }
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
         /*
-          * 1) Надо пробежаться по всем детям посчитать максимальную ширину линии и максиманую высоту
-          * 2) Исходя из настроек гравити расставить элементы
+          * 1) Надо пробежаться по всем детям, посчитать максимальную ширину линии и максимальную высоту.
+          * 2) Исходя из настроек гравити, расставить элементы.
           */
 
-        var height = 0
-        var lineWidth = 0
         val childCount = childCount
         widthList.clear()
         val widthSize = measuredWidth
 
-        for (i in 0 until childCount) {
+        for (index in 0 until childCount) {
 
-            val v = getChildAt(i)
-            if (v.visibility == View.GONE) {
+            val currentView = getChildAt(index)
+            if (currentView.visibility == View.GONE) {
                 continue
             }
-            val lp = v.layoutParams as LayoutParams
-            val childWidth = v.measuredWidth + lp.leftMargin + lp.rightMargin
-            val childHeight = v.measuredHeight + lp.topMargin + lp.bottomMargin
-
-            if (lineWidth + childWidth > widthSize) {// переход на новую линию
-                widthList.add(lineWidth)
-                lineWidth = childWidth
-                height += childHeight
-            } else {
-                lineWidth += childWidth
-                height = Math.max(height, childHeight)
-            }
+            val lp = currentView.layoutParams as LayoutParams
+            setChildSize(lp, currentView)
+            measureLineOfChildren()
         }
         widthList.add(lineWidth)
 
-        var verticalGravityMargin = 0
-        when (gravity and Gravity.VERTICAL_GRAVITY_MASK) {
-            Gravity.BOTTOM -> verticalGravityMargin = getHeight() - height
-            Gravity.CENTER_VERTICAL -> verticalGravityMargin = (getHeight() - height) / 2
-            Gravity.TOP -> {}
-        }
+        val verticalGravityMargin = setVerticalGravityMargin()
 
         val globalWidth = measuredWidth
         lineWidth = 0
@@ -143,20 +150,21 @@ class SearchCustomView @JvmOverloads constructor(
         var left = 0
         var currentLineWidth: Int
         var lineCnt = 0
-        var t: Int
+        var resultTop: Int
 
         for (i in 0 until childCount) {
-            val v = getChildAt(i)
-            if (v.visibility == View.GONE) {
+            val currentChild = getChildAt(i)
+            if (currentChild.visibility == View.GONE) {
                 continue
             }
-            val lp = v.layoutParams as LayoutParams
-            val childWidth = v.measuredWidth + lp.leftMargin + lp.rightMargin
-            val childHeight = v.measuredHeight + lp.topMargin + lp.bottomMargin
+            val lp = currentChild.layoutParams as LayoutParams
+            val childWidth = currentChild.measuredWidth + lp.leftMargin + lp.rightMargin
+            val childHeight = currentChild.measuredHeight + lp.topMargin + lp.bottomMargin
 
-            var l = left
+            var currentLeft = left
 
-            if (i == 0 || lineWidth + childWidth > widthSize) {//переход на новую строку
+            //переход на новую строку
+            if (i == 0 || lineWidth + childWidth > widthSize) {
                 lineWidth = childWidth
                 currentLineWidth = widthList[lineCnt]
                 ++lineCnt
@@ -172,21 +180,48 @@ class SearchCustomView @JvmOverloads constructor(
                     }
                 }
                 left = lineHorizontalGravityMargin
-                l = left
+                currentLeft = left
                 left += childWidth
                 top += childHeight
             } else {
                 left += childWidth
                 lineWidth += childWidth
             }
-            t = top - childHeight
-            v.layout(
-                l + lp.leftMargin,
-                t + lp.topMargin,
-                l + childWidth - lp.rightMargin,
-                t + childHeight - lp.bottomMargin
+            resultTop = top - childHeight
+            currentChild.layout(
+                currentLeft + lp.leftMargin,
+                resultTop + lp.topMargin,
+                currentLeft + childWidth - lp.rightMargin,
+                resultTop + childHeight - lp.bottomMargin
             )
         }
+    }
+
+    private fun setChildSize(lp: LayoutParams, currentView: View) {
+        childWidth = currentView.measuredWidth + lp.leftMargin + lp.rightMargin
+        childHeight = currentView.measuredHeight + lp.topMargin + lp.bottomMargin
+    }
+
+    private fun measureLineOfChildren() {
+        // переход на новую линию
+        if (lineWidth + childWidth > widthSize) {
+            widthList.add(lineWidth)
+            lineWidth = childWidth
+            height += childHeight
+        } else {
+            lineWidth += childWidth
+            height = Math.max(height, childHeight)
+        }
+    }
+
+    private fun setVerticalGravityMargin(): Int {
+        var verticalGravityMargin: Int = 0
+        when (gravity and Gravity.VERTICAL_GRAVITY_MASK) {
+            Gravity.BOTTOM -> verticalGravityMargin = getHeight() - height
+            Gravity.CENTER_VERTICAL -> verticalGravityMargin = (getHeight() - height) / 2
+            Gravity.TOP -> {}
+        }
+        return verticalGravityMargin
     }
 
     fun setGravity(gravity: Int) {
@@ -236,12 +271,12 @@ class SearchCustomView @JvmOverloads constructor(
             var childIndex = -1
 
             // Ищем индекс чайлда
-            for (i in 0 until childCount) {
-                val childView = getChildAt(i)
+            for (index in 0 until childCount) {
+                val childView = getChildAt(index)
                 val childRect = Rect()
                 childView.getHitRect(childRect)
                 if (childRect.contains(touchX, touchY)) {
-                    childIndex = i
+                    childIndex = index
                     break
                 }
             }
@@ -250,7 +285,7 @@ class SearchCustomView @JvmOverloads constructor(
                 val childView = getChildAt(childIndex)
                 val textView = childView.findViewById<TextView>(R.id.searchStockItem)
                 val textIn = textView.text.toString()
-                viewListener?.transferInfo(textIn)
+                transferInfo?.transferInfo(textIn)
 
             }
         }

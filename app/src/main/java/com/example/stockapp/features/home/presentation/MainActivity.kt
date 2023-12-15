@@ -5,7 +5,6 @@ import android.os.Handler
 import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
@@ -14,47 +13,43 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
-import androidx.core.view.marginTop
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.load.engine.Resource
 import com.example.stockapp.R
 import com.example.stockapp.databinding.ActivityMainBinding
+import com.example.stockapp.features.home.domain.UserSearchHistoryService
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), CustomViewListener {
+class MainActivity : AppCompatActivity(), CustomViewTransferInfo {
 
     @Inject
     lateinit var adapter: StockAdapter
     private lateinit var binding: ActivityMainBinding
     private val viewModel: StockViewModel by viewModels()
-    private var searchJob: Job? = null
-    private lateinit var searchCustomPopularRequests: ViewGroup
-    private lateinit var searchCustomSearched: ViewGroup
-    private val handler = Handler(Looper.getMainLooper())
     private var changedSearch = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val searchListener = findViewById<SearchCustomView>(R.id.SearchCustomSearched)
-        searchListener.viewListener = this
-        val popularStockListener = findViewById<SearchCustomView>(R.id.SearchCustomPopularRequests)
-        popularStockListener.viewListener = this
 
         binding.apply {
             recView.layoutManager = LinearLayoutManager(this@MainActivity)
             recView.adapter = adapter
         }
-        searchCustomPopularRequests =
-            findViewById<SearchCustomView>(R.id.SearchCustomPopularRequests)
-        searchCustomSearched = findViewById<SearchCustomView>(R.id.SearchCustomSearched)
+
+        binding.SearchCustomPopularRequests.setTranfer(this)
+        binding.SearchCustomSearched.setTranfer(this)
         startVisibility()
 
         lifecycleScope.launch {
@@ -72,6 +67,34 @@ class MainActivity : AppCompatActivity(), CustomViewListener {
                 Toast.makeText(
                     this@MainActivity, getString(R.string.Stocks_unloaded), Toast.LENGTH_LONG
                 ).show()
+            }
+        }
+
+        //Проверка данных, если был поиск
+        lifecycleScope.launch {
+
+            viewModel.searched.collectLatest { data ->
+                data?.let {
+                    adapter.addStock(data)
+                    withContext(Dispatchers.Main) {
+                        binding.recView.visibility = View.VISIBLE
+                        binding.showMore.visibility = View.VISIBLE
+                        binding.stocksForSearch.visibility = View.VISIBLE
+                        binding.line.visibility = View.VISIBLE
+                    }
+                }
+            }
+        }
+
+        //Проверка на отсутствие акции при поиске
+        lifecycleScope.launch {
+
+            viewModel.exception.collect { data ->
+                data?.let {
+                    Toast.makeText(
+                        this@MainActivity, getString(R.string.No_name), Toast.LENGTH_LONG
+                    ).show()
+                }
             }
         }
 
@@ -116,22 +139,25 @@ class MainActivity : AppCompatActivity(), CustomViewListener {
                     binding.textInputFrame.startIconDrawable = (getDrawable(R.drawable.search))
                     binding.textInputInner.hint = getString(R.string.find)
                     binding.textInputInner.clearFocus()
-                    searchJob?.cancel()// для отмены, если строка пустая стала, т.е. когда пользователь очистил строку ввода
+                    // для отмены, если строка пустая стала, т.е. когда пользователь очистил строку ввода
+                    viewModel.searchJob?.cancel()
                     getStartStocks()
                 } else {
                     requestVisibility()
                     getStocks(s.toString())
+
                 }
             }
         })
 
         binding.textInputInner.setOnFocusChangeListener(View.OnFocusChangeListener { v, hasFocus ->
-            if (!searchCustomPopularRequests.children.any()) {//Проверка, чтобы не добавить повторно элементы, если пользователь вернется к поиску снова
+            //Проверка, чтобы не добавить повторно элементы, если пользователь вернется к поиску снова
+            if (!binding.SearchCustomPopularRequests.children.any()) {
                 fillRequests()
             }
             if (changedSearch) {
-                searchCustomSearched.removeAllViews()
-                searchCustomPopularRequests.removeAllViews()
+                binding.SearchCustomSearched.removeAllViews()
+                binding.SearchCustomPopularRequests.removeAllViews()
                 fillRequests()
                 changedSearch = false
             }
@@ -141,41 +167,21 @@ class MainActivity : AppCompatActivity(), CustomViewListener {
     }
 
     private fun getStocks(symbols: String) {
-        searchJob?.cancel()// для отмены, если строка ввода изменилась
+        // для отмены, если строка ввода изменилась
+        viewModel.searchJob?.cancel()
 
-        try {
-            if (!symbols.equals("")) {
-
-                searchJob = lifecycleScope.launch {
-                    delay(400)
-                    viewModel.searchDataStocks(// ищет по символам, не дожидаясь окончательного ввода
-                        symbols
-                    )
-                    viewModel.changeListRequestsOfUser(symbols)
-                    changedSearch = true
-                    viewModel.searched.collectLatest { data ->
-                        data?.let {
-                            adapter.addStock(data)
-                        } ?: Toast.makeText(
-                            this@MainActivity, getString(R.string.No_name), Toast.LENGTH_LONG
-                        ).show()
-                        handler.post {
-                            binding.recView.visibility = View.VISIBLE
-                            binding.showMore.visibility = View.VISIBLE
-                            binding.stocksForSearch.visibility = View.VISIBLE
-                            binding.line.visibility = View.VISIBLE
-                        } // если не отправлять на главный поток,
-                        // сначала будет отображаться основной список акций, а после тот, который найден
-                    }
-                }
+        if (symbols.isNotEmpty()) {
+            try {
+                viewModel.searchDataStocks(
+                    symbols
+                )
+            } catch (e: NullPointerException) {
+                Toast.makeText(
+                    this@MainActivity, getString(R.string.No_name), Toast.LENGTH_LONG
+                ).show()
             }
-
-        } catch (e: NullPointerException) {
-            Toast.makeText(
-                this@MainActivity, getString(R.string.No_name), Toast.LENGTH_LONG
-            ).show()
+            changedSearch = true
         }
-
     }
 
     private fun getStartStocks() {
@@ -205,31 +211,35 @@ class MainActivity : AppCompatActivity(), CustomViewListener {
 
             val textView = layoutInflater.inflate(R.layout.search_stock, null)
             val item = textView.findViewById<TextView>(R.id.searchStockItem)
-            item.text = list?.get(i).toString()
-
+            var stringForItem = list?.get(i)?.search?.let { this.getString(it) }
+            //item.text = list?.get(i).toString()
+            item.text = stringForItem
             val layoutParams = SearchCustomView.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
             )
             layoutParams.setMargins(4, 4, 4, 4)
             textView.layoutParams = layoutParams
-            searchCustomPopularRequests.addView(textView)
+            binding.SearchCustomPopularRequests.addView(textView)
         }
     }
 
     private fun showHadRequests(list: List<SearchData>?) {
 
         for (i in 0 until (list?.size ?: 0)) {
+
             val textView = layoutInflater.inflate(R.layout.search_stock, null)
             val item = textView.findViewById<TextView>(R.id.searchStockItem)
-            item.text = list?.get(i).toString()
+            //item.text = list?.get(i).toString()
+            var stringForItem = list?.get(i)?.search?.let { this.getString(it) }
+            item.text = stringForItem
             val layoutParams = SearchCustomView.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
             )
             layoutParams.setMargins(4, 4, 4, 4)
             textView.layoutParams = layoutParams
-            searchCustomSearched.addView(textView)
+            binding.SearchCustomSearched.addView(textView)
         }
     }
 

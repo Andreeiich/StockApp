@@ -1,5 +1,6 @@
 package com.example.stockapp.features.home.di
 
+import android.content.Context
 import com.example.stockapp.features.home.data.DataRepositoryImpl
 import com.example.stockapp.features.home.data.ServerDataApi
 import com.example.stockapp.features.home.domain.StockDataHelper
@@ -41,15 +42,18 @@ object AppModule {
     fun provideBusinessLogicObject(): StockDataHelper {
         return StockDataHelperImpl()
     }
+
     @Provides
     @Singleton
-    fun provideStockAdapter():StockAdapter{
+    fun provideStockAdapter(): StockAdapter {
         return StockAdapter()
     }
 
     @Provides
     @Singleton
-    fun provideBusinessLogicSearch():SearchDataHelper{
+    fun provideBusinessLogicSearch(): SearchDataHelper {
         return SearchDataHelperImpl()
     }
+
+
 }

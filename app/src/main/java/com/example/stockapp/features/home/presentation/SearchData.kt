@@ -1,8 +1,5 @@
 package com.example.stockapp.features.home.presentation
 
-data class SearchData (val search:String) {
+data class SearchData(val search: Int) {
 
-    override fun toString(): String {
-        return "$search"
-    }
 }

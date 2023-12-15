@@ -54,12 +54,12 @@
     <dimen name="price_height">24dp</dimen>
     <dimen name="price_margin_top">16dp</dimen>
     <dimen name="price_text_size">18sp</dimen>
-    
+
     <dimen name="star_height">16dp</dimen>
     <dimen name="star_width">16dp</dimen>
     <dimen name="star_margin_start">4dp</dimen>
     <dimen name="star_margin_top">22dp</dimen>
-    
+
     <dimen name="company_margin_start">8dp</dimen>
     <dimen name="company_height">16dp</dimen>
     <dimen name="company_text_size">11sp</dimen>
@@ -72,25 +72,34 @@
 
     <dimen name="search_stock_margin">4dp</dimen>
     <dimen name="search_stock_text_size">12sp</dimen>
+    <dimen name="search_stock_padding">10dp</dimen>
+    <dimen name="search_stock_layout_height">40dp</dimen>
 
     <dimen name="popular_requests_marginStart">20dp</dimen>
     <dimen name="popular_requests_marginTop">24dp</dimen>
     <dimen name="popular_requests_marginEnd">329dp</dimen>
 
-    <dimen name="you_have_searched_marginStart">17dp</dimen>
+    <dimen name="you_have_searched_marginStart">20dp</dimen>
     <dimen name="you_have_searched_marginTop">16dp</dimen>
     <dimen name="you_have_searched_marginEnd">73dp</dimen>
 
     <dimen name="stocksForSearch_size_text">18sp</dimen>
     <dimen name="stocksForSearch_margin_Top">48dp</dimen>
+    <dimen name="stocksForSearch_margin_Start">20dp</dimen>
     <dimen name="stocksForSearch_height">24dp</dimen>
 
     <dimen name="show_more_margin_Top">48dp</dimen>
     <dimen name="show_more_margin_bottom">11dp</dimen>
     <dimen name="show_more_text_size">12sp</dimen>
     <dimen name="show_more_height">16dp</dimen>
+    <dimen name="show_more_marginEnd">20dp</dimen>
 
     <dimen name="line_height">3dp</dimen>
     <dimen name="line_margin_Top">24dp</dimen>
+
+    <dimen name="searchCustomView_margin_top">8dp</dimen>
+    <dimen name="searchCustomView_margin_left">16dp</dimen>
+
+    <dimen name="search_text_style_radius">20dp</dimen>
 
 </resources>
