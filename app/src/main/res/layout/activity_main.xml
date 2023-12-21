@@ -41,6 +41,54 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
+        android:id="@+id/popular_requests"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/popular_requests_marginStart"
+        android:layout_marginTop="@dimen/popular_requests_marginTop"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="@string/Popular_requests"
+        android:textColor="@color/black"
+        android:textSize="@dimen/favourite_text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_input_frame" />
+
+    <com.example.stockapp.features.home.presentation.SearchCustomView
+        android:id="@+id/SearchCustomPopularRequests"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/searchCustomView_margin_left"
+        android:layout_marginTop="@dimen/searchCustomView_margin_top"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/popular_requests">
+
+    </com.example.stockapp.features.home.presentation.SearchCustomView>
+
+    <TextView
+        android:id="@+id/You_have_searched"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/you_have_searched_marginStart"
+        android:layout_marginTop="@dimen/you_have_searched_marginTop"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="@string/searched"
+        android:textColor="@color/black"
+        android:textSize="@dimen/favourite_text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SearchCustomPopularRequests" />
+
+    <com.example.stockapp.features.home.presentation.SearchCustomView
+        android:id="@+id/SearchCustomSearched"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/searchCustomView_margin_left"
+        android:layout_marginTop="@dimen/searchCustomView_margin_top"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/You_have_searched" />
+
+    <TextView
         android:id="@+id/stocks"
         android:layout_width="@dimen/stocks_width"
         android:layout_height="@dimen/stocks_height"
@@ -49,7 +97,7 @@
         android:layout_marginEnd="@dimen/stocks_margin_end"
         android:layout_marginBottom="@dimen/stocks_margin_bottom"
         android:fontFamily="@font/montserrat_bold"
-        android:text="Stocks"
+        android:text="@string/stocks"
         android:textColor="@color/black"
         android:textSize="@dimen/stocks_size_font"
         app:layout_constraintBottom_toTopOf="@+id/recView"
@@ -65,7 +113,7 @@
         android:layout_marginEnd="@dimen/favourite_margin_end"
         android:layout_marginBottom="@dimen/favourite_margin_bottom"
         android:fontFamily="@font/montserrat_bold"
-        android:text="Favourite"
+        android:text="@string/favourite"
         android:textColor="@color/grey"
         android:textSize="@dimen/favourite_text_size"
         app:layout_constraintBottom_toTopOf="@+id/recView"
@@ -87,5 +135,39 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
+    <TextView
+        android:id="@+id/stocksForSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/stocksForSearch_height"
+        android:layout_marginStart="@dimen/stocksForSearch_margin_Start"
+        android:layout_marginTop="@dimen/stocksForSearch_margin_Top"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="@string/stocks"
+        android:textColor="@color/black"
+        android:textSize="@dimen/stocksForSearch_size_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_input_frame" />
+
+    <TextView
+        android:id="@+id/show_more"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/show_more_height"
+        android:layout_marginTop="@dimen/show_more_margin_Top"
+        android:layout_marginEnd="@dimen/show_more_marginEnd"
+        android:layout_marginBottom="@dimen/show_more_margin_bottom"
+        android:fontFamily="@font/montserrat_semi_bold"
+        android:text="@string/show_more"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/recView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_input_frame" />
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        android:layout_marginTop="@dimen/line_margin_Top"
+        android:background="@color/line"
+        app:layout_constraintTop_toBottomOf="@+id/text_input_frame" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

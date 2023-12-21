@@ -15,5 +15,21 @@
     <string name="idea">Представление</string>
     <string name="Stocks_unloaded">Акции не загружены,попробуйте позже,пожалуйста!</string>
     <string name="No_name">Нет акций с таким именем</string>
+    <string name="show_more">Показать еще</string>
+    <string name="apple">Apple</string>
+    <string name="amazon">Amazon</string>
+    <string name="google">Google</string>
+    <string name="tesla">Tesla</string>
+    <string name="firstSolar">FirstSolar</string>
+    <string name="alibaba">Alibaba</string>
+    <string name="facebook">Facebook</string>
+    <string name="mastercard">Mastercard</string>
+    <string name="nokia">Nokia</string>
+    <string name="intel">intel</string>
+    <string name="visa">Visa</string>
+    <string name="amd">AMD</string>
+    <string name="gm">GM</string>
+    <string name="nvidia">Nvidia</string>
+    <string name="merc">merc</string>
 
 </resources>
