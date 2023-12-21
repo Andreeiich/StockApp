@@ -10,22 +10,11 @@ import kotlin.collections.ArrayList
 
 class UserSearchHistoryService @Inject constructor(
     private val searchHelper: SearchDataHelper,
-    /*@ApplicationContext
-       val context: Context*/
 ) :
     SearchUseCase<String, List<SearchData>> {
 
+    private val index = 0
     private val popularRequests
-        /*get() = arrayListOf<String>(
-            "Apple",
-            "Amazon",
-            "Google",
-            "Tesla",
-            "FirstSolar",
-            "Alibaba",
-            "Facebook",
-            "Mastercard"
-        )*/
         get() = arrayListOf(
             (R.string.apple),
             R.string.amazon,
@@ -37,7 +26,6 @@ class UserSearchHistoryService @Inject constructor(
             R.string.mastercard
         )
 
-    // private var hadRequests = arrayListOf<String>("Nokia", "intel", "Visa", "AMD", "GM", "Nvidia")
     private var hadRequests = arrayListOf(
         R.string.nokia,
         R.string.intel,
@@ -56,14 +44,8 @@ class UserSearchHistoryService @Inject constructor(
     }
 
     override fun changeListRequestsOfUser(string: String) {
-        if (index == indexLast) {
-            index = 0
-        }
-        //hadRequests.add(index, string)
-        hadRequests.add(index, R.string.merc)
-        index++
+        hadRequests.add(hadRequests.size, R.string.merc)
         hadRequests.removeAt(index)
-
     }
 
     private fun prepareSearchData(list: ArrayList<Int>): MutableList<SearchData> {
@@ -78,8 +60,4 @@ class UserSearchHistoryService @Inject constructor(
         return result
     }
 
-    companion object {
-        private var index = 0
-        private var indexLast = 6
-    }
 }
