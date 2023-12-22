@@ -41,6 +41,7 @@ class StockViewModel @Inject constructor(
     val popularRequests = _popularRequests
     val exception = _exceptionOfRequest
 
+
     suspend fun getStocks() {
         val result = viewModelScope.launch {
             val result = getStockDataUseCase.invoke("Params")

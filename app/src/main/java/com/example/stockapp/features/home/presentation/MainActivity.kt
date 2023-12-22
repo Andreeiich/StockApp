@@ -37,7 +37,6 @@ class MainActivity : AppCompatActivity(), CustomViewTransferInfo {
     private lateinit var binding: ActivityMainBinding
     private val viewModel: StockViewModel by viewModels()
     private var changedSearch = false
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -75,7 +74,7 @@ class MainActivity : AppCompatActivity(), CustomViewTransferInfo {
 
             viewModel.searched.collectLatest { data ->
                 data?.let {
-                    adapter.addStock(data)
+                    adapter.addStock(data.take(stocksStartSearch))
                     withContext(Dispatchers.Main) {
                         binding.recView.visibility = View.VISIBLE
                         binding.showMore.visibility = View.VISIBLE
@@ -164,6 +163,24 @@ class MainActivity : AppCompatActivity(), CustomViewTransferInfo {
             focusOnSearchVisibility()
         })
 
+
+        binding.showMore.setOnClickListener(View.OnClickListener {
+
+            val searchedStocks = viewModel.searched.value
+            var size = viewModel.searched.value?.size
+
+            if (size != null) {
+                if (size > stocksStartSearch) {
+                    adapter.addStock(searchedStocks)
+                } else {
+                    Toast.makeText(
+                        this@MainActivity, getString(R.string.noStocks), Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+
+        })
+
     }
 
     private fun getStocks(symbols: String) {
@@ -191,8 +208,8 @@ class MainActivity : AppCompatActivity(), CustomViewTransferInfo {
 
     private fun fillRequests() {
 
-        var popularRequests: List<SearchData>? = arrayListOf()
-        var hadRequest: List<SearchData>? = arrayListOf()
+        var popularRequests: List<SearchData>? = listOf()
+        var hadRequest: List<SearchData>? = listOf()
         lifecycleScope.launch {
             viewModel.getRequestsOfUser()
             hadRequest = viewModel.request.value
@@ -212,13 +229,17 @@ class MainActivity : AppCompatActivity(), CustomViewTransferInfo {
             val textView = layoutInflater.inflate(R.layout.search_stock, null)
             val item = textView.findViewById<TextView>(R.id.searchStockItem)
             var stringForItem = list?.get(i)?.search?.let { this.getString(it) }
-            //item.text = list?.get(i).toString()
             item.text = stringForItem
             val layoutParams = SearchCustomView.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
             )
-            layoutParams.setMargins(4, 4, 4, 4)
+            layoutParams.setMargins(
+                resources.getDimension(R.dimen.requests_padding).toInt(),
+                resources.getDimension(R.dimen.requests_padding).toInt(),
+                resources.getDimension(R.dimen.requests_padding).toInt(),
+                resources.getDimension(R.dimen.requests_padding).toInt()
+            )
             textView.layoutParams = layoutParams
             binding.SearchCustomPopularRequests.addView(textView)
         }
@@ -230,14 +251,18 @@ class MainActivity : AppCompatActivity(), CustomViewTransferInfo {
 
             val textView = layoutInflater.inflate(R.layout.search_stock, null)
             val item = textView.findViewById<TextView>(R.id.searchStockItem)
-            //item.text = list?.get(i).toString()
             var stringForItem = list?.get(i)?.search?.let { this.getString(it) }
             item.text = stringForItem
             val layoutParams = SearchCustomView.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
             )
-            layoutParams.setMargins(4, 4, 4, 4)
+            layoutParams.setMargins(
+                resources.getDimension(R.dimen.requests_padding).toInt(),
+                resources.getDimension(R.dimen.requests_padding).toInt(),
+                resources.getDimension(R.dimen.requests_padding).toInt(),
+                resources.getDimension(R.dimen.requests_padding).toInt()
+            )
             textView.layoutParams = layoutParams
             binding.SearchCustomSearched.addView(textView)
         }
@@ -286,6 +311,10 @@ class MainActivity : AppCompatActivity(), CustomViewTransferInfo {
 
     override fun transferInfo(info: String) {
         binding.textInputInner.setText(info)
+    }
+
+    companion object {
+        private const val stocksStartSearch: Int = 5
     }
 
 }

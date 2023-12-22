@@ -27,7 +27,7 @@ interface ServerDataApi {
     companion object {
         const val BASE_URL = "https://financialmodelingprep.com/api/v3/"
         const val STOCK_KEY = BuildConfig.KEY_STOCKS
-        const val SEARCH_STOCK_LIMIT = "5"
+        const val SEARCH_STOCK_LIMIT = "1000"
         const val EXCHANGE = "NASDAQ"
     }
 }
