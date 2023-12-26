@@ -166,39 +166,34 @@ class MainActivity : AppCompatActivity(), CustomViewTransferInfo {
 
         binding.showMore.setOnClickListener(View.OnClickListener {
 
-            val searchedStocks = viewModel.searched.value
-            var size = viewModel.searched.value?.size
-
-            if (size != null) {
-                if (size > stocksStartSearch) {
-                    adapter.addStock(searchedStocks)
-                } else {
-                    Toast.makeText(
-                        this@MainActivity, getString(R.string.noStocks), Toast.LENGTH_LONG
-                    ).show()
+            adapter.addStock(viewModel.showMoreStocks())
+            
+            lifecycleScope.launch {
+                viewModel.exceptionOfShowMore.collect { data ->
+                    data?.let {
+                        Toast.makeText(
+                            this@MainActivity, getString(R.string.noStocks), Toast.LENGTH_LONG
+                        ).show()
+                    }
                 }
             }
-
         })
 
     }
 
     private fun getStocks(symbols: String) {
-        // для отмены, если строка ввода изменилась
-        viewModel.searchJob?.cancel()
 
-        if (symbols.isNotEmpty()) {
-            try {
-                viewModel.searchDataStocks(
-                    symbols
-                )
-            } catch (e: NullPointerException) {
-                Toast.makeText(
-                    this@MainActivity, getString(R.string.No_name), Toast.LENGTH_LONG
-                ).show()
-            }
-            changedSearch = true
+        try {
+            viewModel.searchDataStocks(
+                symbols
+            )
+        } catch (e: NullPointerException) {
+            Toast.makeText(
+                this@MainActivity, getString(R.string.No_name), Toast.LENGTH_LONG
+            ).show()
         }
+        changedSearch = true
+
     }
 
     private fun getStartStocks() {
