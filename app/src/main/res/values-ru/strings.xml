@@ -31,6 +31,6 @@
     <string name="gm">GM</string>
     <string name="nvidia">Nvidia</string>
     <string name="merc">merc</string>
-    <string name="noStocks">Акций по данному запрошу больше нет.</string>
+    <string name="noStocks">Акций по данному запроcу больше нет.</string>
 
 </resources>

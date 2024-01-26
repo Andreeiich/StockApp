@@ -17,6 +17,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.job
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
@@ -30,6 +31,7 @@ class StockViewModel @Inject constructor(
     private val getRequests: UserSearchHistoryService,
 ) : ViewModel() {
     var searchJob: Job? = null
+    var showMoreStocksJob: Job? = null
 
 
     private val _state = MutableStateFlow<List<StockData>?>(null)
@@ -38,13 +40,16 @@ class StockViewModel @Inject constructor(
     private val _popularRequests = MutableStateFlow<List<SearchData>?>(null)
     private val _exceptionOfRequest = MutableStateFlow<Throwable?>(null)
     private val _exceptionOfShowMore = MutableStateFlow<Throwable?>(null)
+    private val _searchInsideMore = MutableStateFlow<List<StockData>?>(null)
+    private val _searchIncludeMore = MutableStateFlow<List<StockData>?>(null)
     val searched = _search
     val state = _state
     val request = _requests
     val popularRequests = _popularRequests
     val exception = _exceptionOfRequest
     val exceptionOfShowMore = _exceptionOfShowMore
-
+    val searchedInside = _searchInsideMore
+    val searchIncludeMore = _searchIncludeMore
 
     suspend fun getStocks() {
         val result = viewModelScope.launch {
@@ -67,7 +72,8 @@ class StockViewModel @Inject constructor(
                 if (result == null || result.isEmpty()) {
                     exception.value = NullPointerException()
                 } else {
-                    searched.value = result
+                    searchedInside.value = result
+                    searched.value = result.take(stocksStartSearch)
                 }
                 changeListRequestsOfUser(search)
             }
@@ -88,20 +94,24 @@ class StockViewModel @Inject constructor(
         getRequests.changeListRequestsOfUser(request)
     }
 
-    fun showMoreStocks(): List<StockData>? {
+    fun showMoreStocks() {
 
-        val size = searched.value?.size
-        if (size != null) {
-            if (size > stocksStartSearch) {
+        val size = searchedInside.value?.size
+        if (showMoreStocksJob != null) {
+            exceptionOfShowMore.value = NullPointerException()
+        }
+        checkStateExceptionShowMore()
+        showMoreStocksJob = viewModelScope.launch {
+            if (size?.let { size -> size > stocksStartSearch } == true) {
                 exceptionOfShowMore.value = null
-                return searched.value
-            }else{
-                exceptionOfShowMore.value = NullPointerException()
+                searchIncludeMore.value = searchedInside.value
             }
         }
-        return null
     }
 
+    fun checkStateExceptionShowMore() {
+        showMoreStocksJob = null
+    }
 
     companion object {
         const val secondsOfDelay = 400L

@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity(), CustomViewTransferInfo {
 
             viewModel.searched.collectLatest { data ->
                 data?.let {
-                    adapter.addStock(data.take(stocksStartSearch))
+                    adapter.addStock(data)
                     withContext(Dispatchers.Main) {
                         binding.recView.visibility = View.VISIBLE
                         binding.showMore.visibility = View.VISIBLE
@@ -84,6 +84,7 @@ class MainActivity : AppCompatActivity(), CustomViewTransferInfo {
                 }
             }
         }
+
 
         //Проверка на отсутствие акции при поиске
         lifecycleScope.launch {
@@ -166,14 +167,25 @@ class MainActivity : AppCompatActivity(), CustomViewTransferInfo {
 
         binding.showMore.setOnClickListener(View.OnClickListener {
 
-            adapter.addStock(viewModel.showMoreStocks())
-            
             lifecycleScope.launch {
                 viewModel.exceptionOfShowMore.collect { data ->
                     data?.let {
                         Toast.makeText(
-                            this@MainActivity, getString(R.string.noStocks), Toast.LENGTH_LONG
+                            this@MainActivity, getString(R.string.noStocks), Toast.LENGTH_SHORT
                         ).show()
+                        viewModel.checkStateExceptionShowMore()
+                    }
+                }
+            }
+
+
+            lifecycleScope.launch {
+
+                viewModel.showMoreStocks()
+
+                viewModel.searchIncludeMore.collect { data ->
+                    data?.let {
+                        adapter.addStock(data)
                     }
                 }
             }
@@ -308,9 +320,6 @@ class MainActivity : AppCompatActivity(), CustomViewTransferInfo {
         binding.textInputInner.setText(info)
     }
 
-    companion object {
-        private const val stocksStartSearch: Int = 5
-    }
 
 }
 
