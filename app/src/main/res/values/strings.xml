@@ -31,5 +31,6 @@
     <string name="gm">GM</string>
     <string name="nvidia">Nvidia</string>
     <string name="merc">merc</string>
+    <string name="noStocks">There aren\'t stocks anymore.</string>
 
 </resources>

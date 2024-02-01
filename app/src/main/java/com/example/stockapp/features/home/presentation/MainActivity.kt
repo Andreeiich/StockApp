@@ -37,7 +37,6 @@ class MainActivity : AppCompatActivity(), CustomViewTransferInfo {
     private lateinit var binding: ActivityMainBinding
     private val viewModel: StockViewModel by viewModels()
     private var changedSearch = false
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -85,6 +84,7 @@ class MainActivity : AppCompatActivity(), CustomViewTransferInfo {
                 }
             }
         }
+
 
         //Проверка на отсутствие акции при поиске
         lifecycleScope.launch {
@@ -164,24 +164,48 @@ class MainActivity : AppCompatActivity(), CustomViewTransferInfo {
             focusOnSearchVisibility()
         })
 
+
+        binding.showMore.setOnClickListener(View.OnClickListener {
+
+            lifecycleScope.launch {
+                viewModel.exceptionOfShowMore.collect { data ->
+                    data?.let {
+                        Toast.makeText(
+                            this@MainActivity, getString(R.string.noStocks), Toast.LENGTH_SHORT
+                        ).show()
+                        viewModel.checkStateExceptionShowMore()
+                    }
+                }
+            }
+
+
+            lifecycleScope.launch {
+
+                viewModel.showMoreStocks()
+
+                viewModel.searchIncludeMore.collect { data ->
+                    data?.let {
+                        adapter.addStock(data)
+                    }
+                }
+            }
+        })
+
     }
 
     private fun getStocks(symbols: String) {
-        // для отмены, если строка ввода изменилась
-        viewModel.searchJob?.cancel()
 
-        if (symbols.isNotEmpty()) {
-            try {
-                viewModel.searchDataStocks(
-                    symbols
-                )
-            } catch (e: NullPointerException) {
-                Toast.makeText(
-                    this@MainActivity, getString(R.string.No_name), Toast.LENGTH_LONG
-                ).show()
-            }
-            changedSearch = true
+        try {
+            viewModel.searchDataStocks(
+                symbols
+            )
+        } catch (e: NullPointerException) {
+            Toast.makeText(
+                this@MainActivity, getString(R.string.No_name), Toast.LENGTH_LONG
+            ).show()
         }
+        changedSearch = true
+
     }
 
     private fun getStartStocks() {
@@ -191,8 +215,8 @@ class MainActivity : AppCompatActivity(), CustomViewTransferInfo {
 
     private fun fillRequests() {
 
-        var popularRequests: List<SearchData>? = arrayListOf()
-        var hadRequest: List<SearchData>? = arrayListOf()
+        var popularRequests: List<SearchData>? = listOf()
+        var hadRequest: List<SearchData>? = listOf()
         lifecycleScope.launch {
             viewModel.getRequestsOfUser()
             hadRequest = viewModel.request.value
@@ -212,13 +236,17 @@ class MainActivity : AppCompatActivity(), CustomViewTransferInfo {
             val textView = layoutInflater.inflate(R.layout.search_stock, null)
             val item = textView.findViewById<TextView>(R.id.searchStockItem)
             var stringForItem = list?.get(i)?.search?.let { this.getString(it) }
-            //item.text = list?.get(i).toString()
             item.text = stringForItem
             val layoutParams = SearchCustomView.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
             )
-            layoutParams.setMargins(4, 4, 4, 4)
+            layoutParams.setMargins(
+                resources.getDimension(R.dimen.requests_padding).toInt(),
+                resources.getDimension(R.dimen.requests_padding).toInt(),
+                resources.getDimension(R.dimen.requests_padding).toInt(),
+                resources.getDimension(R.dimen.requests_padding).toInt()
+            )
             textView.layoutParams = layoutParams
             binding.SearchCustomPopularRequests.addView(textView)
         }
@@ -230,14 +258,18 @@ class MainActivity : AppCompatActivity(), CustomViewTransferInfo {
 
             val textView = layoutInflater.inflate(R.layout.search_stock, null)
             val item = textView.findViewById<TextView>(R.id.searchStockItem)
-            //item.text = list?.get(i).toString()
             var stringForItem = list?.get(i)?.search?.let { this.getString(it) }
             item.text = stringForItem
             val layoutParams = SearchCustomView.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
             )
-            layoutParams.setMargins(4, 4, 4, 4)
+            layoutParams.setMargins(
+                resources.getDimension(R.dimen.requests_padding).toInt(),
+                resources.getDimension(R.dimen.requests_padding).toInt(),
+                resources.getDimension(R.dimen.requests_padding).toInt(),
+                resources.getDimension(R.dimen.requests_padding).toInt()
+            )
             textView.layoutParams = layoutParams
             binding.SearchCustomSearched.addView(textView)
         }
@@ -287,6 +319,7 @@ class MainActivity : AppCompatActivity(), CustomViewTransferInfo {
     override fun transferInfo(info: String) {
         binding.textInputInner.setText(info)
     }
+
 
 }
 

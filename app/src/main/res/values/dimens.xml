@@ -102,4 +102,6 @@
 
     <dimen name="search_text_style_radius">20dp</dimen>
 
+    <dimen name="requests_padding">4dp</dimen>
+
 </resources>
